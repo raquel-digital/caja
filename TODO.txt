@@ -1,0 +1,3 @@
+incluir un gasto otros con descripcion
+boton de anular ingreso para arrays
+
