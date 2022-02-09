@@ -157,10 +157,10 @@ socket.emit("get-form", async data => {
 })
 socket.on("form", data => {
     console.log(data)
- if(data.ALQUILER == null){
-    delete(data[0].__v);
-    delete(data[0]._id);
-  }
+    if(data.ALQUILER == null){
+        delete(data[0].__v);
+        delete(data[0]._id);
+    }
     formData = data[0];
     draw_form();
 })

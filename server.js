@@ -77,6 +77,7 @@ io.on('connect', socket => {
     })
     socket.on("get-form", async () => {
         formCaja = await mongoCrud.leerForm();
+        if(formCaja.length > 0)
         socket.emit("form", formCaja);
     })
     if(emitirCaja){
