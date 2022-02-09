@@ -370,41 +370,66 @@ const mongo = {
             const base = await controlMensual.find();
             if(base.length == 0){
                 await controlMensual.create(
-                    {ALQUILER: data.ALQUILER},
-                    {Movistar: data.Movistar},
-                    {POSNET: data.POSNET},
-                    {PROGRAMADOR: data.PROGRAMADOR},
-                    {SUELDOS_CARGAS: data.SUELDOS_CARGAS},
-                    {Telecom: data.Telecom},
-                    {abl_planes: data.abl_planes},
-                    {contador: data.contador},
-                    {ganancias: data.ganancias},
-                    {gastos_bancarios: data.gastos_bancarios},
-                    {jubilacion_javier: data.jubilacion_javier},
-                    {seguros: data.seguros},
-                    {sueldos_2: data.sueldos_2})
+                {
+                    ALQUILER: data.ALQUILER,
+                    Movistar: data.Movistar,
+                    POSNET: data.POSNET,
+                    PROGRAMADOR: data.PROGRAMADOR,
+                    SUELDOS_CARGAS: data.SUELDOS_CARGAS,
+                    Telecom: data.Telecom,
+                    abl_planes: data.abl_planes,
+                    contador: data.contador,
+                    ganancias: data.ganancias,
+                    gastos_bancarios: data.gastos_bancarios,
+                    jubilacion_javier: data.jubilacion_javier,
+                    seguros: data.seguros,
+                    sueldos_2: data.sueldos_2
+                })
             }else{
                 await controlMensual.updateMany(
-                {ALQUILER: data.ALQUILER},
-                {Movistar: data.Movistar},
-                {POSNET: data.POSNET},
-                {PROGRAMADOR: data.PROGRAMADOR},
-                {SUELDOS_CARGAS: data.SUELDOS_CARGAS},
-                {Telecom: data.Telecom},
-                {abl_planes: data.abl_planes},
-                {contador: data.contador},
-                {ganancias: data.ganancias},
-                {gastos_bancarios: data.gastos_bancarios},
-                {jubilacion_javier: data.jubilacion_javier},
-                {seguros: data.seguros},
-                {sueldos_2: data.sueldos_2}
-             )
+                    {
+                        ALQUILER: data.ALQUILER,
+                        Movistar: data.Movistar,
+                        POSNET: data.POSNET,
+                        PROGRAMADOR: data.PROGRAMADOR,
+                        SUELDOS_CARGAS: data.SUELDOS_CARGAS,
+                        Telecom: data.Telecom,
+                        abl_planes: data.abl_planes,
+                        contador: data.contador,
+                        ganancias: data.ganancias,
+                        gastos_bancarios: data.gastos_bancarios,
+                        jubilacion_javier: data.jubilacion_javier,
+                        seguros: data.seguros,
+                        sueldos_2: data.sueldos_2
+            })
             }
             return
         }catch(err){
             console.log("ERROR EN CONTROL MENSUAL " + err);
         }
         
+    },
+    leerForm: async function () {
+      const base = await controlMensual.find();
+      if(base.length < 0){
+        const formData = {ALQUILER: 0,
+            Movistar: 0,
+            POSNET: 0,
+            PROGRAMADOR: 0,
+            SUELDOS_CARGAS: 0,
+            Telecom: 0,
+            abl_planes: 0,
+            contador: 0,
+            ganancias: 0,
+            gastos_bancarios: 0,
+            jubilacion_javier: 0,
+            seguros: 0,
+            sueldos_2: 0
+        };
+        return formData;
+      }else{
+        return base
+      }
     },
     cajaAnterior: async function (fecha) {
         try{

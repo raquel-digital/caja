@@ -4,21 +4,6 @@ var allData;
 let totalVentas = 0;
 let totalCierreZ = 0;
 
-var formData = {ALQUILER: 0,
-                Movistar: 0,
-                POSNET: 0,
-                PROGRAMADOR: 0,
-                SUELDOS_CARGAS: 0,
-                Telecom: 0,
-                abl_planes: 0,
-                contador: 0,
-                ganancias: 0,
-                gastos_bancarios: 0,
-                jubilacion_javier: 0,
-                seguros: 0,
-                sueldos_2: 0
-            }
-
 socket.on("allData", data => {
     allData = data;
     document.querySelector(".fecha").innerHTML = `<h1>FECHA: ${data[0].fecha}</h1>`;
@@ -129,11 +114,6 @@ document.querySelector(".IVA-tr").innerHTML = `IVA: ${netoIVA - ivaNotaCred}`;
 document.querySelector(".TOTAL-tr").innerHTML = `TOTAL: ${totNeto - result.totalNeto }`;
 })
 
-socket.on("form", data => {
-    formData = data;
-    console.log(data)
-})
-
 function sumaFormula(obj){    
     
         var sum = 0;
@@ -141,12 +121,47 @@ function sumaFormula(obj){
           if( obj.hasOwnProperty( e ) ) {
             sum += parseFloat( obj[e] );
           }
+          console.log(sum + " "+ obj[e])
         }
         return sum;
 }
 
 //---------------------------------------------DATOS MENSUALES----------------------------------------------------------------------------
+
+    
+
+
+function draw_form(){
+  if(formData != null){
+    document.querySelector(".alquilerResult").value = formData.ALQUILER;
+    document.querySelector(".moviestarResult").value = formData.Movistar;
+    document.querySelector(".posnetResult").value = formData.POSNET;
+    document.querySelector(".programadorResult").value = formData.PROGRAMADOR;
+    document.querySelector(".telecomResult").value = formData.Telecom;
+    document.querySelector(".ablResult").value = formData.abl_planes;
+    document.querySelector(".contadorResult").value = formData.contador;
+    document.querySelector(".ganaciasResult").value = formData.ganancias;
+    document.querySelector(".gastosBancariosResult").value = formData.gastos_bancarios;
+    document.querySelector(".jubilacionJavierResult").value = formData.jubilacion_javier;
+    document.querySelector(".segurosResult").value = formData.seguros;
+    document.querySelector(".sueldosResult").value = formData.sueldos_2;
+    document.querySelector(".sueldosCargasResult").value = formData.SUELDOS_CARGAS;
+  }
+}
 document.addEventListener("DOMContentLoaded", () => {
+    formData = null;
 
+socket.emit("get-form", async data => {
+    formData = await data[0];
+    draw_form();
 })
-
+socket.on("form", data => {
+    console.log(data)
+ if(data.ALQUILER == null){
+    delete(data[0].__v);
+    delete(data[0]._id);
+  }
+    formData = data[0];
+    draw_form();
+})
+})

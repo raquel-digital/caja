@@ -23,6 +23,7 @@ const loginMiddleware = require("./utils/midleware")
 var allData;
 var dataHoy;
 var formCaja;
+var emitirCaja = false
 
 async function readBase(){
     try{
@@ -74,8 +75,13 @@ io.on('connect', socket => {
       const result = await buscarModel.buscarColeccion(data);
       socket.emit("getMonthResult", result);
     })
-    if(formCaja != null){
-        socket.emit("form", formCaja)
+    socket.on("get-form", async () => {
+        formCaja = await mongoCrud.leerForm();
+        socket.emit("form", formCaja);
+    })
+    if(emitirCaja){
+        socket.emit("form", formCaja);
+        emitirCaja =  false;
     }
     socket.on("salir", () => {
         loginMiddleware.salir();
@@ -112,6 +118,7 @@ app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {
 app.post("/formSubmit", loginMiddleware.logged, async (req, res) => {
     formCaja = req.body;
     await mongoCrud.constrolMensual(formCaja);
+    emitirCaja = true;
     res.redirect("/controlMesual");
 })
 
