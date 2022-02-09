@@ -91,10 +91,14 @@ app.get("/login", (req, res) => {
 app.get("/controlMesual", loginMiddleware.logged, (req, res) => {
     res.sendFile('client/control.html', {root: __dirname })
 })
-app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {
-     const fecha = `${req.body.dia}-${req.body.mes}-${req.body.anio}`
-     allData = await mongoCrud.cajaAnterior(fecha);
-     res.redirect("/");
+app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {    
+     const fecha = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
+     if(fecha == allData[0].fecha){
+         res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
+     }else{
+        allData = await mongoCrud.cajaAnterior(fecha);
+        res.redirect("/");
+     }
 })
 app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {
     await require('./coneccion-mongo/mongoCompas');
