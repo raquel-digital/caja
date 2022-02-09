@@ -29,14 +29,15 @@
    </div>  
    <hr>
    <div class="row">
-    <div class="col-5">
+    <div class="col-4">
      <div class="row"> 
         <form action="/controlMesual"><button class="ml-2 btn btn-success" type="submit">CONTROL MENSUAL</button></form>
+        <form action="/control-mes-deposito"><button class="ml-3 btn btn-info" type="submit">CONTROL DEPOSITOS</button></form>
         <form action="/login"><button class="ml-3 btn btn-danger salir" type="submit" onclick="salir()">salir</button></form>
      </div>  
     </div>
     <form class="row " action="/caja-anterior" method="post">
-        <input class="mr-2" type="text" name="dia" placeholder="dia">
+        <input class="mr-1" type="text" name="dia" placeholder="dia">
         <hr>
         <select class="form-select form-select-lg" aria-label=".form-select-lg example" name="mes">
             <datalist id="cars">
@@ -244,7 +245,7 @@
         <div class="card-body">
     <p>MERCADOPAGO:</p>
         <div class="mercadopagoTotales"></div>
-    <p>COMICIONES %:</p>
+    <p>COMISIONES %:</p>
         <div class="comicionesMP"></div>
         <p>TOTAL:</p>
         <div class="total-comicionMP"></div>
@@ -252,7 +253,7 @@
 </div>
 <div class="card" style="background-color:rgb(197, 236, 138); border: 3px solid black;">    
         <div class="card-body" >
-            <p>COMICIONES % CREDITO Y DEBITO:</p>
+            <p>COMISIONES % CREDITO Y DEBITO:</p>
             <div class="comiciones"></div>        
             <p>TOTAL:</p>
             <div class="comicion-debito"></div>
@@ -262,9 +263,9 @@
     
     <div class="card" style="background-color: rgb(235, 103, 103); border: 3px solid black;">   
         <div class="card-body">
-        <p>SUMA DE COMICIONES:</p>
+        <p>SUMA DE COMISIONES:</p>
         <div class="sumaComiciones"></div>
-        <p>SUMA DE COMICIONES</p>
+        <p>SUMA DE COMISIONES</p>
         <div class="comicionesDescontadas" ></div>
     </div>
     </div>

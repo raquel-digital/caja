@@ -91,6 +91,9 @@ app.get("/login", (req, res) => {
 app.get("/controlMesual", loginMiddleware.logged, (req, res) => {
     res.sendFile('client/control.html', {root: __dirname })
 })
+app.get("/control-mes-deposito", loginMiddleware.logged, (req, res) => {
+    res.sendFile('client/depositos-mensuales.html', {root: __dirname })
+})
 app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {    
      const fecha = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
      if(fecha == allData[0].fecha){
