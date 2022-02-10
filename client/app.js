@@ -29,7 +29,7 @@ socket.on("allData", data => {
         }
         if(data[0].saldo_caja != null){
             let saldoCaja = document.querySelector(".resultsaldoCaja");
-            saldoCaja.innerHTML = `<p>TOTAL DE CAJA: ${data[0].saldo_caja.toFixed(2)}</p>`;
+            saldoCaja.innerHTML = `<p>TOTAL DE CAJA: ${data[0].saldo_caja}</p>`;
           }
 
          if(data[0].transferencias_ICBC != null){
@@ -37,7 +37,7 @@ socket.on("allData", data => {
             transferenciaICBC.innerHTML = ``;
             data[0].transferencias_ICBC.forEach(e => {
                 transferenciaICBC.innerHTML += `
-                <li>cliente: <b>${e.cliente} </b>monto: <b>${e.monto.toFixed(2)}</b></li>
+                <li>cliente: <b>${e.cliente} </b>monto: <b>${e.monto}</b></li>
                 `;
          })
         }
@@ -46,13 +46,13 @@ socket.on("allData", data => {
             transferenciaSantander.innerHTML = ``;
             data[0].transferencias_Santander.forEach(e => {
                 transferenciaSantander.innerHTML += `
-                <li>cliente: <b>${e.cliente} </b>monto: <b>${e.monto.toFixed(2)}</b></li>
+                <li>cliente: <b>${e.cliente} </b>monto: <b>${e.monto}</b></li>
                 `;
          })
         }
          if(data[0].gasto_comida != null){
            let gastoComida = document.querySelector(".resultasoComida");
-           gastoComida.innerHTML = `<p>TOTAL GASTADO: ${data[0].gasto_comida.toFixed(2)}</p>`;
+           gastoComida.innerHTML = `<p>TOTAL GASTADO: ${data[0].gasto_comida}</p>`;
          }
          if(data[0].gasto_embalaje != null){
             //console.log(data[0].gasto_embalaje)
@@ -64,18 +64,18 @@ socket.on("allData", data => {
           }
          if(data[0].gasto_correo != null){
             let gastoCorreo = document.querySelector(".resultcorreoGastos");
-            gastoCorreo.innerHTML = `<p>TOTAL GASTADO: ${data[0].gasto_correo.toFixed(2)}</p>`;
+            gastoCorreo.innerHTML = `<p>TOTAL GASTADO: ${data[0].gasto_correo}</p>`;
           }
          if(data[0].gasto_flete != null){
             let gastoFlete = document.querySelector(".resultgastoFlete");
-            gastoFlete.innerHTML = `<p>TOTAL GASTADO: ${data[0].gasto_flete.toFixed(2)}</p>`;
+            gastoFlete.innerHTML = `<p>TOTAL GASTADO: ${data[0].gasto_flete}</p>`;
           }
          if(data[0].cheques != null){
          let cheques = document.querySelector(".resultCheques");    
          cheques.innerHTML = ``;
             data[0].cheques.forEach(e => {
                 cheques.innerHTML += `
-                <li>cliente: <b>${e.cliente} </b>monto: <b>${e.monto.toFixed(2)}</b></li>
+                <li>cliente: <b>${e.cliente} </b>monto: <b>${e.monto}</b></li>
                 `;
          })
         }
@@ -84,12 +84,12 @@ socket.on("allData", data => {
             gasto.innerHTML = ``;
             data[0].gasto_facturaA.forEach(e => {
                     gasto.innerHTML += `
-                        <li>empresa: <b>${e.empresa} </b>monto: <b>${e.monto.toFixed(2)}</b></li>
+                        <li>empresa: <b>${e.empresa} </b>monto: <b>${e.monto}</b></li>
                         `;
             })
             let totalGlobal = document.querySelector(".resultGlobalA");
             totalGlobal.innerHTML = `
-            <li>TOTAL: ${data[0].resultado_facturaA.toFixed(2)}</li>
+            <li>TOTAL: ${data[0].resultado_facturaA}</li>
             `;
            } 
            if(data[0].compras_facturaA != null){
@@ -102,11 +102,11 @@ socket.on("allData", data => {
             })
             let totalGlobal = document.querySelector(".resultGlobalAcompras");
             totalGlobal.innerHTML = `
-            <li>TOTAL: ${data[0].resultado_comprasA.toFixed(2)}</li>
+            <li>TOTAL: ${data[0].resultado_comprasA}</li>
             `;
             let totalGlobal2 = document.querySelector(".resultGlobalAcompras2");
             totalGlobal2.innerHTML = `
-            <p>${data[0].resultado_comprasA.toFixed(2)}</p>
+            <p>${data[0].resultado_comprasA}</p>
             `;
            }
            if(data[0].compras_facturaB != null){
@@ -114,16 +114,16 @@ socket.on("allData", data => {
             gasto.innerHTML = ``;
             data[0].compras_facturaB.forEach(e => {
                     gasto.innerHTML += `
-                        <li>empresa: <b>${e.empresa} </b>monto: <b>${e.monto.toFixed(2)}</b></li>
+                        <li>empresa: <b>${e.empresa} </b>monto: <b>${e.monto}</b></li>
                         `;
             })
             let totalGlobal = document.querySelector(".resultGlobalB");
             totalGlobal.innerHTML = `
-            <li>TOTAL: ${data[0].resultado_comprasB.toFixed(2)}</li>
+            <li>TOTAL: ${data[0].resultado_comprasB}</li>
             `;
             let totalGlobal2 = document.querySelector(".resultGlobalB2");
             totalGlobal2.innerHTML = `
-            <p>${data[0].resultado_comprasB.toFixed(2)}</p>
+            <p>${data[0].resultado_comprasB}</p>
             `;
            }
            if(data[0].retiros_MP != null){
@@ -137,91 +137,91 @@ socket.on("allData", data => {
            }
            if(data[0].mercadopago_retirado != null){
             let result = document.querySelector(".resultadoMercadopagoRetirado");
-            result.innerHTML = `<p>${data[0].mercadopago_retirado.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].mercadopago_retirado}</p>`;
           }
           if(data[0].mercadopago_minorista != null){
             let result = document.querySelector(".resultadoMercadopagoMinorista");
-            result.innerHTML = `<p>${data[0].mercadopago_minorista.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].mercadopago_minorista}</p>`;
           }
           if(data[0].mercadopago_total != null){
             let result = document.querySelector(".mercadopagoTotales");
-            result.innerHTML = `<p>${data[0].mercadopago_total.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].mercadopago_total}</p>`;
           } 
           if(data[0].notas_de_credito != null){
             let result = document.querySelector(".resultadonotaDeCredito");
-            result.innerHTML = `<p>${data[0].notas_de_credito.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].notas_de_credito}</p>`;
           } 
           if(data[0].cierre_z != null){
             let result = document.querySelector(".resultadocierreZ");
-            result.innerHTML = `<p>${data[0].cierre_z.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].cierre_z}</p>`;
           }
           if(data[0].ventas_cta_cte != null){
             let result = document.querySelector(".resultadoventasCtaCte");
-            result.innerHTML = `<p>${data[0].ventas_cta_cte.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].ventas_cta_cte}</p>`;
           }
           if(data[0].cierreZ_Ncredit != null){
             let result = document.querySelector(".cierreZ-Ncredit");
-            result.innerHTML = `<p>${data[0].cierreZ_Ncredit.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].cierreZ_Ncredit}</p>`;
           }
           if(data[0].credito_debito != null){
             let result = document.querySelector(".resultadocreditoDebito");
-            result.innerHTML = `<p>${data[0].credito_debito.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].credito_debito}</p>`;
           }
           if(data[0].comiciones != null){
             let result = document.querySelector(".comiciones");
-            result.innerHTML = `<p>${data[0].comiciones.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].comiciones}</p>`;
           }
           if(data[0].comicion_debitos != null){
             let result = document.querySelector(".comicion-debito");
-            result.innerHTML = `<p>${data[0].comicion_debitos.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].comicion_debitos}</p>`;
           }
           if(data[0].total_comicionMP != null){
             let result = document.querySelector(".comicionesMP");
-            result.innerHTML = `<p>${data[0].total_comicionMP.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].total_comicionMP}</p>`;
           }
           if(data[0].comicionMP_resta != null){
             let result = document.querySelector(".total-comicionMP");
-            result.innerHTML = `<p>${data[0].comicionMP_resta.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].comicionMP_resta}</p>`;
           }
           if(data[0].sumaComiciones != null){
             let result = document.querySelector(".sumaComiciones");
-            result.innerHTML = `<p>${data[0].sumaComiciones.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].sumaComiciones}</p>`;
           }
           if(data[0].total_comiciones_resta != null){
             let result = document.querySelector(".comicionesDescontadas");
-            result.innerHTML = `<p>${data[0].total_comiciones_resta.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].total_comiciones_resta}</p>`;
           }
           if(data[0].recaudado != null){
             let result = document.querySelector(".recaudado");
-            result.innerHTML = `<p>${data[0].recaudado.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].recaudado}</p>`;
           }
           if(data[0].total_gastos != null){
             let result = document.querySelector(".totalGastos");
-            result.innerHTML = `<p>${data[0].total_gastos.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].total_gastos}</p>`;
           }
           if(data[0].total_comprasAB != null){
             let result = document.querySelector(".comprasAB");
-            result.innerHTML = `<p>${data[0].total_comprasAB.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].total_comprasAB}</p>`;
           }
           if(data[0].comprasA_sIVA != null){
             let result = document.querySelector(".comprasAsIVA");
-            result.innerHTML = `<p>${data[0].comprasA_sIVA.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].comprasA_sIVA}</p>`;
           }
           if(data[0].total_comprasB != null){
             let result = document.querySelector(".totalComprasB");
-            result.innerHTML = `<p>${data[0].total_comprasB.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].total_comprasB}</p>`;
           }
           if(data[0].total_ventas != null){
             let result = document.querySelector(".totalVentasFinal");
-            result.innerHTML = `<p>${data[0].total_ventas.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].total_ventas}</p>`;
           }
           if(data[0].utilidad_bruta != null){
             let result = document.querySelector(".utilidad_bruta");
-            result.innerHTML = `<p>${data[0].utilidad_bruta.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].utilidad_bruta}</p>`;
           }
           if(data[0].utilidad_real != null){
             let result = document.querySelector(".utilidadReal");
-            result.innerHTML = `<p>${data[0].utilidad_real.toFixed(2)}</p>`;
+            result.innerHTML = `<p>${data[0].utilidad_real}</p>`;
           }
           
     }
