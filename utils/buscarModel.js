@@ -46,23 +46,27 @@ const schema = mongoose.Schema({
     utilidad_real : {type: Number}
 });
 
-async function buscarColeccion(coleccion) {
-    coleccion = coleccion.split("");
-    let str2 = coleccion.splice(0, 2);
-    str2 = parseInt(str2.join(""));
-    str2--;
-    coleccion = coleccion.join("");
-    
+async function buscarColeccion(coleccion) {    
+    // coleccion = coleccion.split("");
+    // let str2 = coleccion.splice(0, 2);
+    // str2 = parseInt(str2.join(""));
+    // console.log(str2)
+    // str2--;
+    // coleccion = coleccion.join("");
+    coleccion = coleccion.split("-");    
+    str2 = parseInt(coleccion[0]);    
+    --str2    
     let find = [];
     try{
         while(str2 >= 1){            
-            let coleccionTemp = str2+"-"+coleccion;
+            let coleccionTemp = str2+"-"+coleccion[1]+"-"+coleccion[2];
+            
             let base = await coleccionCallBack(coleccionTemp);
             if(base.length > 0){            
                 find.push(base);
             }
             str2--;
-        }
+        }        
         return find;
     }catch(err){
       return console.log("BASE DE DATOS NO ENCONTRADA " + err)

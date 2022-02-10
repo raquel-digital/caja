@@ -4,12 +4,13 @@ var allData;
 let table =  document.querySelector(".table");
 
 socket.on("allData", data => {
-    allData = data;
+    allData = data;    
     document.querySelector(".fecha").innerHTML = `<h1>FECHA: ${data[0].fecha}</h1>`;
     socket.emit("getMonth" ,data[0].fecha);
 })
 
 socket.on("getMonthResult", data => {
+    console.log(data)
     document.querySelector(".load").innerHTML = " ";      
     table.innerHTML = `<table class="table table-hover">
     <thead>
@@ -55,7 +56,7 @@ socket.on("getMonthResult", data => {
         if(allData[0].transferencias_ICBC.length > 0){
             allData[0].transferencias_ICBC.forEach( e => {
                 document.querySelector(".tableICBC").innerHTML += `
-                <tr><td>${el[0].fecha}</td><td>cliente: ${e.cliente} <td> monto: <b>${e.monto}</b></td><tr>
+                <tr><td>${allData[0].fecha}</td><td>cliente: ${e.cliente} <td> monto: <b>${e.monto}</b></td><tr>
                 `;
             })            
         }
@@ -68,7 +69,7 @@ socket.on("getMonthResult", data => {
         }
         
  
-
+        
     data.forEach( el => {
         if(allData[0].cheques.length > 0){
             el[0].cheques.forEach( e => {
