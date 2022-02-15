@@ -9,10 +9,11 @@ const middlewares = {
         // res.redirect('/');
         let log = req.body
         const admin = {usuario: "capadmin", contraseña: "capri2665" }
+        const user = {usuario: "capadmin", contraseña: "capri2665" }
         if(admin.usuario == log.usuario && admin.contraseña == log.contraseña){
             adminOk = true;
             res.redirect('/')
-            next()
+            return next()
         }
         if(user.usuario == log.usuario && user.contraseña == log.contraseña){
             loginOk = true;
@@ -33,7 +34,7 @@ const middlewares = {
     },
     superAdmin : function (req, res, next){
         if(adminOk){
-            next()
+            return next()
       }else{
           res.redirect('/login')
           return next();
