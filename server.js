@@ -47,10 +47,11 @@ io.on('connect', socket => {
     }else{
         (async () => {
             try{
-             allData = await mongoCrud.read();
-             if(allData == null)
-             await mongoCrud.create({fecha: fecha.fecha});
-             return allData = await mongoCrud.read();
+            //  allData = await mongoCrud.read();
+            //  if(allData == null)
+            //  await mongoCrud.create({fecha: fecha.fecha});
+            //  return allData = await mongoCrud.read();
+            allData = await mongoCrud.cajaAnterior(fecha.fecha);
             }catch(err){
                 console.log("no se pudo crear BASE"+err)
             }

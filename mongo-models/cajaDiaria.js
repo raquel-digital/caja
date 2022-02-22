@@ -47,6 +47,5 @@ const schema = mongoose.Schema({
 });
 
 let caja = mongoose.model(`${fecha.fecha}`, schema);
-//const caja = mongoose.model(`TEST`, schema);
 
 module.exports = caja;
