@@ -128,7 +128,7 @@ app.get("/", loginMiddleware.logged, async (req, res) => {
     return res.sendFile('client/indexx.html', {root: __dirname })
 })
 app.get("/login", (req, res) => {
-    return  res.sendFile('client/login.html', {root: __dirname })
+    return res.sendFile('client/login.html', {root: __dirname })
 })
 app.get("/controlMesual", loginMiddleware.logged, (req, res) => {
     return  res.sendFile('client/control.html', {root: __dirname })
@@ -149,14 +149,10 @@ app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {
 app.get("/index-ant", loginMiddleware.logged, async (req, res) => {    
     return  res.sendFile("client/index-ant.html", {root: __dirname });
 })
-app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {
-    // await require('./coneccion-mongo/mongoCompas');
-    // await readBase();
-    // res.redirect("/");
+app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {    
     if(fecha === fecha.fecha){
         return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
-    }else{
-       //allData = await mongoCrud.cajaAnterior(fecha);
+    }else{       
        fecha_ant = fecha.fecha;
        return res.redirect("/index-ant");
     }

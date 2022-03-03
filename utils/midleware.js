@@ -19,23 +19,22 @@ const middlewares = {
               res.redirect('/')
               return next()
         }else{            
-            return res.redirect("/login"), next();
+            return res.redirect("/login");
         } 
     },
     logged : function (req, res, next) {        
         if(loginOk || adminOk){           
               return next()
         }else{            
-            res.redirect('/login')
-            return next();
+          return res.redirect('/login');
         }
     },
     superAdmin : function (req, res, next){
         if(adminOk){
             return next()
       }else{
-          res.redirect('/login')
-          return next();
+        return res.redirect('/login')
+           
       }
     },
     superAdminCheck : function () {
@@ -52,4 +51,3 @@ const middlewares = {
     
 };
 module.exports = middlewares;
-
