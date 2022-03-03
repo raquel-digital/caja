@@ -4,7 +4,7 @@ var copiaData;
 var envioData;
 var fechaCli;
 
-socket.on("fecha-hoy", data => {
+socket.on("fecha_ant", data => {
   fechaCli = data;  
 })
 socket.emit("base-data-inicial");

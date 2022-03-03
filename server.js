@@ -20,53 +20,88 @@ app.use(express.static('./client'));
 const loginMiddleware = require("./utils/midleware")
 
 //Recuperamos los datos de MONGO
-var allData;
-var dataHoy;
+
 var formCaja;
 var emitirCaja = false
 
-async function readBase(){
-    try{
-        let fecha = require("./utils/fecha");        
-        allData = await mongoCrud.read();
-        if(allData.fecha == null)
-        await mongoCrud.create({fecha: fecha.fecha});
-        dataHoy = allData;
-        return allData = await mongoCrud.read();
-       }catch(err){
-           console.log("no se pudo crear BASE"+err)
-       }
-}
-readBase()
+var fecha_ant = null; 
+
+// async function readBase(){
+//     try{
+//         let fecha = require("./utils/fecha");        
+//         allData = await mongoCrud.read();
+//         if(allData.fecha == null)
+//         await mongoCrud.create({fecha: fecha.fecha});
+//         dataHoy = allData;
+//         return allData = await mongoCrud.read();
+//        }catch(err){
+//            console.log("no se pudo crear BASE"+err)
+//        }
+// }
+// readBase()
 
 //WebSocket recibimos data del cliente
 io.on('connect', socket => {
     //inicia pagina enviamos la fecha
-    if(allData){
-        socket.emit("allData", allData);
-    }else{
-        (async () => {
+    // if(allData){
+    //     socket.emit("allData", allData);
+    // }else{
+    //     (async () => {
+    //         try{
+    //         //  allData = await mongoCrud.read();
+    //         //  if(allData == null)
+    //         //  await mongoCrud.create({fecha: fecha.fecha});
+    //         //  return allData = await mongoCrud.read();
+    //         allData = await mongoCrud.cajaAnterior(fecha.fecha);
+    //         }catch(err){
+    //             console.log("no se pudo crear BASE"+err)
+    //         }
+    //      })()
+    //}  
+    if(fecha_ant != null){
+        console.log(fecha_ant);
+        socket.emit("fecha_ant", fecha_ant)
+        socket.on("base-data-inicial", async () => { 
             try{
-             allData = await mongoCrud.read();
-             if(allData == null)
-             await mongoCrud.create({fecha: fecha.fecha});
-             return allData = await mongoCrud.read();
+                let responce = await mongoCrud.read();
+                    if(responce == null)
+                        await mongoCrud.create({fecha: fecha_ant});
+                responce = await mongoCrud.read();
+                socket.emit("allData", responce);
+                fecha_ant = null;
             }catch(err){
-                console.log("no se pudo crear BASE"+err)
+                console.log("ERROR EN LECTURA INICIAL " + err)
             }
-         })()
-    }
+        })    
+    }else{
+        socket.emit("fecha-hoy", fecha.fecha);
+        socket.on("base-data-inicial", async () => { 
+            try{
+                let responce = await mongoCrud.read();
+                    if(responce == null)
+                        await mongoCrud.create({fecha: fecha.fecha});
+                responce = await mongoCrud.read();
+                socket.emit("allData", responce);
+            }catch(err){
+                console.log("ERROR EN LECTURA INICIAL " + err)
+            }
+    })   
+    }   
     socket.on("nuevo-dato", async dato => {
         await mongoCrud.create(dato);
-        allData = await mongoCrud.read();
-        socket.emit("allData", allData);
+        const reWrite = await mongoCrud.read();
+        socket.emit("allData", reWrite);
     });
     socket.on("dato-anterior", async dato => {
-        console.log(dato, allData[0].fecha)
-        await mongoCrud.create(dato, allData[0].fecha);
-        
-        allData =  await mongoCrud.cajaAnterior(allData[0].fecha);
-        socket.emit("allData", allData);
+        let fecha;
+        socket.emit("fecha-anterior");
+        socket.on("res-fecha-anterior", fecha_ant => {
+            fecha =  fecha_ant;
+            console.log(fecha)
+        })                
+        await mongoCrud.create(dato, fecha);        
+        const reWrite =  await mongoCrud.cajaAnterior(fecha);
+        socket.emit("allData", reWrite);
     });
     socket.on("cierre-caja", async () =>{
         return mongoCrud.ingresarTotal();
@@ -101,19 +136,30 @@ app.get("/controlMesual", loginMiddleware.logged, (req, res) => {
 app.get("/control-mes-deposito", loginMiddleware.logged, (req, res) => {
     res.sendFile('client/depositos-mensuales.html', {root: __dirname })
 })
-app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {    
-     const fecha = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
-     if(fecha == allData[0].fecha){
+app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => { 
+       
+     fecha_ant = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
+     if(fecha === fecha.fecha){
          res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
      }else{
-        allData = await mongoCrud.cajaAnterior(fecha);
-        res.redirect("/");
+        //allData = await mongoCrud.cajaAnterior(fecha);
+        res.redirect("/index-ant");
      }
 })
+app.get("/index-ant", loginMiddleware.logged, async (req, res) => {    
+    res.sendFile("client/index-ant.html", {root: __dirname });
+})
 app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {
-    await require('./coneccion-mongo/mongoCompas');
-    await readBase();
-    res.redirect("/");
+    // await require('./coneccion-mongo/mongoCompas');
+    // await readBase();
+    // res.redirect("/");
+    if(fecha === fecha.fecha){
+        res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
+    }else{
+       //allData = await mongoCrud.cajaAnterior(fecha);
+       fecha_ant = fecha.fecha;
+       res.redirect("/index-ant");
+    }
 })
 
 app.post("/formSubmit", loginMiddleware.logged, async (req, res) => {
