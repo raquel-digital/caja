@@ -12,13 +12,12 @@ const middlewares = {
         const user = {usuario: "capadmin", contraseña: "capri2665" }
         if(admin.usuario == log.usuario && admin.contraseña == log.contraseña){
             adminOk = true;
-            res.redirect('/')
-            return next()
+            
+            return res.redirect('/'), next()
         }
         if(user.usuario == log.usuario && user.contraseña == log.contraseña){
-            loginOk = true;
-              res.redirect('/')
-              return next()
+            loginOk = true;              
+              return res.redirect('/'), next()
         }else{
             res.redirect("/login");
             return next();
@@ -27,9 +26,8 @@ const middlewares = {
     logged : function (req, res, next) {        
         if(loginOk || adminOk){           
               return next()
-        }else{            
-            res.redirect('/login')
-            return next();
+        }else{
+            return res.redirect('/login'), next();
         }
     },
     superAdmin : function (req, res, next){

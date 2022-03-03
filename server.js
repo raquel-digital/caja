@@ -125,40 +125,40 @@ io.on('connect', socket => {
 })
 
 app.get("/", loginMiddleware.logged, async (req, res) => {
-    res.sendFile('client/indexx.html', {root: __dirname })
+    return res.sendFile('client/indexx.html', {root: __dirname })
 })
 app.get("/login", (req, res) => {
-    res.sendFile('client/login.html', {root: __dirname })
+    return  res.sendFile('client/login.html', {root: __dirname })
 })
 app.get("/controlMesual", loginMiddleware.logged, (req, res) => {
-    res.sendFile('client/control.html', {root: __dirname })
+    return  res.sendFile('client/control.html', {root: __dirname })
 })
 app.get("/control-mes-deposito", loginMiddleware.logged, (req, res) => {
-    res.sendFile('client/depositos-mensuales.html', {root: __dirname })
+    return  res.sendFile('client/depositos-mensuales.html', {root: __dirname })
 })
 app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => { 
        
      fecha_ant = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
      if(fecha === fecha.fecha){
-         res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
+        return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
      }else{
         //allData = await mongoCrud.cajaAnterior(fecha);
-        res.redirect("/index-ant");
+        return res.redirect("/index-ant");
      }
 })
 app.get("/index-ant", loginMiddleware.logged, async (req, res) => {    
-    res.sendFile("client/index-ant.html", {root: __dirname });
+    return  res.sendFile("client/index-ant.html", {root: __dirname });
 })
 app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {
     // await require('./coneccion-mongo/mongoCompas');
     // await readBase();
     // res.redirect("/");
     if(fecha === fecha.fecha){
-        res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
+        return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
     }else{
        //allData = await mongoCrud.cajaAnterior(fecha);
        fecha_ant = fecha.fecha;
-       res.redirect("/index-ant");
+       return res.redirect("/index-ant");
     }
 })
 
@@ -166,7 +166,7 @@ app.post("/formSubmit", loginMiddleware.logged, async (req, res) => {
     formCaja = req.body;
     await mongoCrud.constrolMensual(formCaja);
     emitirCaja = true;
-    res.redirect("/controlMesual");
+   return res.redirect("/controlMesual");
 })
 
 app.post('/singup', loginMiddleware.isLogin);
