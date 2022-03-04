@@ -85,7 +85,10 @@ async function coleccionCallBack(coleccion) {
 let cajaAnterior;
 
 async function coleccionAnterior(fecha){    
-    try{   
+    try{ 
+        if(fecha == undefined){
+            return;
+        }else{  
         let cajaAnterior;    
         cajaAnterior = await mongoose.model(fecha, schema);
         let find = await cajaAnterior.find();
@@ -127,6 +130,7 @@ async function coleccionAnterior(fecha){
         find = await cajaAnterior.find();
         console.log("desde coleccion anterior "+ find)
         return find;
+    }
     }catch(err){
       return console.log("coleccionAnterior BASE DE DATOS NO ENCONTRADA " + err)
     }
