@@ -64,6 +64,7 @@ io.on('connect', socket => {
         socket.on("base-data-inicial", async () => { 
             try{
                 let responce = await mongoCrud.read();
+                console.log(responce)
                     if(responce == null)
                         await mongoCrud.create({fecha: fecha_ant});
                 responce = await mongoCrud.read();
@@ -94,11 +95,12 @@ io.on('connect', socket => {
     });
     socket.on("dato-anterior", async dato => {
         let fecha;
-        socket.emit("fecha-anterior");
+        socket.emit("fecha-anterior");        
         socket.on("res-fecha-anterior", fecha_ant => {
             fecha =  fecha_ant;
-            console.log(fecha)
-        })                
+            console.log(fecha +" D anterior")
+        })
+        console.log(fecha)                
         await mongoCrud.create(dato, fecha);        
         const reWrite =  await mongoCrud.cajaAnterior(fecha);
         socket.emit("allData", reWrite);
