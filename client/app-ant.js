@@ -10,7 +10,9 @@ socket.on("fecha_ant", data => {
 socket.emit("base-data-inicial");
 
 let contabilizar = false;
-socket.on("allData", data => {  
+socket.on("allData", data => {
+    console.log(fechaCli) 
+    console.log(data)  
     copiaData = data;
     if(data[0].fecha != fechaCli){
       envioData = "dato-anterior";

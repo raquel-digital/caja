@@ -64,7 +64,7 @@ io.on('connect', socket => {
         socket.on("base-data-inicial", async () => { 
             try{
                 let responce = await mongoCrud.read();
-                //console.log(responce)
+                console.log(responce)
                     if(responce == null)
                         await mongoCrud.create({fecha: fecha_ant});
                 responce = await mongoCrud.read();
