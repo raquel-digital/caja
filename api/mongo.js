@@ -436,7 +436,7 @@ const mongo = {
             let result = await buscarModel.coleccionAnterior(fecha);
             return result;
         }catch(err){
-            console.log("ERROR DE LECTURA EN MODELO")
+            console.log("ERROR DE LECTURA EN MODELO ++modee")
         }
         
     }
