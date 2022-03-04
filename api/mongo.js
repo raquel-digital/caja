@@ -13,12 +13,12 @@ const mongo = {
             let result = await cajaModel.find();
             return result;
         }catch(err){
-            console.log("ERROR DE LECTURA EN MODELO: " + model)
+            console.log("ERROR DE LECTURA EN MODELO: " + model +" "+err)
         }
     },
     create: async function (data, fechaModel) {
         try{
-            //console.log(data)
+            console.log(data)
             let test;
             if(fechaModel != undefined){ 
                 fecha.fecha = fechaModel;
