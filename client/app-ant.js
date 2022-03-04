@@ -7,10 +7,10 @@ var fechaCli;
 socket.on("fecha_ant", data => {
   fechaCli = data;  
 })
-socket.emit("base-data-inicial");
+socket.emit("base-data-vieja-inicial");
 
 let contabilizar = false;
-socket.on("allData", data => {
+socket.on("dataVieja", data => {
     console.log(fechaCli) 
     console.log(data)  
     copiaData = data;

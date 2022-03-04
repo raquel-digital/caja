@@ -61,14 +61,14 @@ io.on('connect', socket => {
     if(fecha_ant != undefined){
         console.log(fecha_ant);
         socket.emit("fecha_ant", fecha_ant)
-        socket.on("base-data-inicial", async () => { 
+        socket.on("base-data-vieja-inicial", async () => { 
             try{
-                let responce = await mongoCrud.read();
-                console.log(responce)
+                let responce = await mongoCrud.cajaAnterior(fecha_ant);                
                     if(responce == null)
                         await mongoCrud.create({fecha: fecha_ant});
-                responce = await mongoCrud.read();
-                socket.emit("allData", responce);
+                responce = await mongoCrud.cajaAnterior(fecha_ant);
+                console.log("responce "+responce)
+                socket.emit("dataVieja", responce);
                 fecha_ant = undefined;
             }catch(err){
                 console.log("ERROR EN LECTURA INICIAL " + err)

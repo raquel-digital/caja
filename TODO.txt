@@ -1,3 +1,1 @@
-incluir un gasto otros con descripcion
-boton de anular ingreso para arrays
-
+BUSCAR donde devuelve undefind en la devolucion de fecha vieja
