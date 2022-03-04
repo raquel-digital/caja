@@ -16,7 +16,7 @@
     "heroku": "^7.59.2",
     "mongoose": "^6.0.12",
     "nodemon": "^2.0.15",
-    "socket.io": "^4.4.1",
+    "socket.io": "^1.7.4",
     "write-excel-file": "^1.0.0"
   },
   "devDependencies": {},
@@ -30,3 +30,4 @@
   },
   "homepage": "https://github.com/raquel-digital/caja#readme"
 }
+
