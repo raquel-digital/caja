@@ -24,7 +24,7 @@ const loginMiddleware = require("./utils/midleware")
 var formCaja;
 var emitirCaja = false
 
-var fecha_ant = null; 
+var fecha_ant = undefined; 
 
 // async function readBase(){
 //     try{
@@ -58,23 +58,24 @@ io.on('connect', socket => {
     //         }
     //      })()
     //}  
-    if(fecha_ant != null){
+    if(fecha_ant != undefined){
         console.log(fecha_ant);
         socket.emit("fecha_ant", fecha_ant)
         socket.on("base-data-inicial", async () => { 
             try{
                 let responce = await mongoCrud.read();
-                console.log(responce)
+                //console.log(responce)
                     if(responce == null)
                         await mongoCrud.create({fecha: fecha_ant});
                 responce = await mongoCrud.read();
                 socket.emit("allData", responce);
-                fecha_ant = null;
+                fecha_ant = undefined;
             }catch(err){
                 console.log("ERROR EN LECTURA INICIAL " + err)
             }
         })    
     }else{
+        console.log("inicio")
         socket.emit("fecha-hoy", fecha.fecha);
         socket.on("base-data-inicial", async () => { 
             try{
@@ -98,9 +99,9 @@ io.on('connect', socket => {
         socket.emit("fecha-anterior");        
         socket.on("res-fecha-anterior", fecha_ant => {
             fecha =  fecha_ant;
-            console.log(fecha +" D anterior")
+            //console.log(fecha +" D anterior")
         })
-        console.log(fecha)                
+        //console.log(fecha)                
         await mongoCrud.create(dato, fecha);        
         const reWrite =  await mongoCrud.cajaAnterior(fecha);
         socket.emit("allData", reWrite);
@@ -138,7 +139,7 @@ app.get("/controlMesual", loginMiddleware.logged, (req, res) => {
 app.get("/control-mes-deposito", loginMiddleware.logged, (req, res) => {
     return  res.sendFile('client/depositos-mensuales.html', {root: __dirname })
 })
-app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => { 
+app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {
        
      fecha_ant = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
      if(fecha === fecha.fecha){
@@ -156,6 +157,7 @@ app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {
         return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
     }else{       
        fecha_ant = fecha.fecha;
+       console.log("desde get "+fecha_ant)
        return res.redirect("/index-ant");
     }
 })

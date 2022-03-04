@@ -125,6 +125,7 @@ async function coleccionAnterior(fecha){
             });
         }
         find = await cajaAnterior.find();
+        console.log("desde coleccion anterior "+ find)
         return find;
     }catch(err){
       return console.log("coleccionAnterior BASE DE DATOS NO ENCONTRADA " + err + find)
