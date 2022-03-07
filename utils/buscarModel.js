@@ -47,12 +47,7 @@ const schema = mongoose.Schema({
 });
 
 async function buscarColeccion(coleccion) {    
-    // coleccion = coleccion.split("");
-    // let str2 = coleccion.splice(0, 2);
-    // str2 = parseInt(str2.join(""));
-    // console.log(str2)
-    // str2--;
-    // coleccion = coleccion.join("");
+    
     coleccion = coleccion.split("-");    
     str2 = parseInt(coleccion[0]);    
     --str2    
@@ -84,7 +79,7 @@ async function coleccionCallBack(coleccion) {
 }
 let cajaAnterior;
 
-async function coleccionAnterior(fecha){    
+async function coleccionAnterior(fecha){
     try{ 
         if(fecha == undefined){
             return;
@@ -126,9 +121,9 @@ async function coleccionAnterior(fecha){
             comprasA_sIVA: 0,
             totalVentas: 0
             });
+            find = await cajaAnterior.find();
         }
-        find = await cajaAnterior.find();
-        console.log("desde coleccion anterior "+ find)
+        //console.log("desde coleccion anterior EXITO " + find[0].fecha)
         return find;
     }
     }catch(err){

@@ -3,22 +3,30 @@ const socket = io.connect();
 var copiaData;
 var envioData;
 var fechaCli;
+var fechaActual;
 
+socket.on("fecha-hoy", fecha => {
+  fechaActual = fecha;
+});
 socket.on("fecha_ant", data => {
-  fechaCli = data;  
+  fechaCli = data; 
+  
+  if(fechaActual != fechaCli){
+    envioData = "dato-anterior";
+  }else{
+    envioData = "nuevo-dato" ;
+  }
 })
+
+
 socket.emit("base-data-vieja-inicial");
 
 let contabilizar = false;
 socket.on("dataVieja", data => {
     console.log(fechaCli) 
-    console.log(data)  
-    copiaData = data;
-    if(data[0].fecha != fechaCli){
-      envioData = "dato-anterior";
-    }else{
-      envioData = "nuevo-dato";
-    }
+    console.log(data[0].fecha)  
+    copiaData = data;    
+    console.log(envioData)
     if(data.length > 0){
         document.querySelector(".fecha").innerHTML = `<h1>FECHA: ${data[0].fecha}</h1>`;
         const mesEnCurso = data[0].fecha.split("-");
@@ -233,7 +241,7 @@ socket.on("dataVieja", data => {
           
     }
       //nos aseguramos que la caja contabilice bien
-      contarCaja();
+      //contarCaja();
 
      })
 
@@ -410,6 +418,7 @@ function salir(){
 }
 
 socket.on("fecha-anterior", () =>{
+  console.log(fechaCli)
   socket.emit("res-fecha-anterior", fechaCli); 
 });
  

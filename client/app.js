@@ -17,6 +17,7 @@ socket.on("allData", data => {
     }else{
       envioData = "nuevo-dato";
     }
+    console.log(envioData)
     if(data.length > 0){
         document.querySelector(".fecha").innerHTML = `<h1>FECHA: ${data[0].fecha}</h1>`;
         const mesEnCurso = data[0].fecha.split("-");

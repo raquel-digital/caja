@@ -171,7 +171,7 @@
 <div class="row">
     <div class="col-6" style="background-color:#5a65ff;">
         <hr>
-            <h3>RETIROS MP</h3>
+            <h3>DEPOSITOS MP</h3>
             <input class="comprasMP" type="text" placeholder="cliente" onfocus="this.value=''">
             <input class="montoMP" type="number" placeholder="monto" onfocus="this.value=''">
             <button onclick="comprasMP('.comprasMP', '.montoMP', 'comprasMP')">confirmar</button>
@@ -198,75 +198,75 @@
 <div class="row">
     <div class="col-1"></div>
     <div style="background-color: rgb(146, 146, 245);">        
-        <p>MERCADOPAGO (RETIRADO):</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">MERCADOPAGO (RETIRADO):</p>
         <input class="mercadopagoRetirado" type="number" onfocus="this.value=''">
         <button onclick="cajaCierre('.mercadopagoRetirado', '.resultadoMercadopagoRetirado')">confirmar</button>
-        <p>TOTAL:</p>
-        <div class="resultadoMercadopagoRetirado"></div>   
-        <p>MERCADOPAGO MINORISTA:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL:</p>
+        <div class="resultadoMercadopagoRetirado" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>   
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">MERCADOPAGO MINORISTA:</p>
         <input class="mercadopagoMinorista" type="number" onfocus="this.value=''">
         <button onclick="cajaCierre('.mercadopagoMinorista', '.resultadoMercadopagoMinorista')">confirmar</button>
-        <p>TOTAL: </p>
-        <div class="resultadoMercadopagoMinorista"></div>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL: </p>
+        <div class="resultadoMercadopagoMinorista" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
     </div>
     <div style="background-color: floralwhite;">
-        <p>CREDITO Y DEBITOS:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">CREDITO Y DEBITOS:</p>
         <input class="creditoDebito" type="number" onfocus="this.value=''">
         <button onclick="cajaCierre('.creditoDebito', 'creditoDebito')">confirmar</button>
-        <div class="resultadocreditoDebito"></div>
+        <div class="resultadocreditoDebito" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
     </div>    
     <div style="background-color: burlywood;">
-        <p>CIERRE Z:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">CIERRE Z:</p>
         <input class="cierreZ" type="number" onfocus="this.value=''">
         <button onclick="cajaCierre('.cierreZ', '.cierreZ')">confirmar</button>
-        <p>TOTAL:</p>
-        <div class="resultadocierreZ"></div>  
-        <p>NOTA DE CREDITO:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL:</p>
+        <div class="resultadocierreZ" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>  
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">NOTA DE CREDITO:</p>
         <input class="notaDeCredito" type="number" onfocus="this.value=''">
         <button onclick="cajaCierre('.notaDeCredito', '.notaDeCredito')">confirmar</button>
-        <p>TOTAL:</p>
-        <div class="resultadonotaDeCredito"></div>
-        <p>VENTAS CTA CTE:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL:</p>
+        <div class="resultadonotaDeCredito" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">VENTAS CTA CTE:</p>
         <input class="ventasCtaCte" type="number" onfocus="this.value=''">
         <button onclick="cajaCierre('.ventasCtaCte', '.ventasCtaCte')">confirmar</button>
-        <p>TOTAL:</p>
-        <div class="resultadoventasCtaCte"></div>  
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL:</p>
+        <div class="resultadoventasCtaCte" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>  
     </div>
 </div>
 <div class="row">
 
 </div>
 <div class="row">
-    <span class="col-3"></span>   <h1>TOTALES DE CAJA</h1> <div class="col-1"></div> <button class="cierreCaja" onclick="cerrameLa12()">ACTIVAR CAJA</button>
+    <span class="col-3"></span>   <h1 style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTALES DE CAJA</h1> <div class="col-1"></div> <button class="cierreCaja" onclick="cerrameLa12()">ACTIVAR CAJA</button>
 </div>
 <div class="row">
     <div class="col-2"></div>
     <div class="card" style="background-color: chartreuse; border: 3px solid black;">
         <div class="card-body">
-    <p>MERCADOPAGO:</p>
-        <div class="mercadopagoTotales"></div>
-    <p>COMISIONES %:</p>
-        <div class="comicionesMP"></div>
-        <p>TOTAL:</p>
-        <div class="total-comicionMP"></div>
+    <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">MERCADOPAGO:</p>
+        <div class="mercadopagoTotales" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
+    <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">COMISIONES %:</p>
+        <div class="comicionesMP" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL:</p>
+        <div class="total-comicionMP" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
         </div>    
 </div>
 <div class="card" style="background-color:rgb(197, 236, 138); border: 3px solid black;">    
         <div class="card-body" >
-            <p>COMISIONES % CREDITO Y DEBITO:</p>
-            <div class="comiciones"></div>        
-            <p>TOTAL:</p>
-            <div class="comicion-debito"></div>
+            <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">COMISIONES % CREDITO Y DEBITO:</p>
+            <div class="comiciones" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>        
+            <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL:</p>
+            <div class="comicion-debito" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
         </div>
     </div>
 
     
     <div class="card" style="background-color: rgb(235, 103, 103); border: 3px solid black;">   
         <div class="card-body">
-        <p>SUMA DE COMISIONES:</p>
-        <div class="sumaComiciones"></div>
-        <p>SUMA DE COMISIONES</p>
-        <div class="comicionesDescontadas" ></div>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">SUMA DE COMISIONES:</p>
+        <div class="sumaComiciones" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">SUMA DE COMISIONES</p>
+        <div class="comicionesDescontadas" style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"></div>
     </div>
     </div>
     </div>
@@ -275,39 +275,39 @@
     <div class="col-2"></div>
     <div class="card" style="background-color: crimson; border: 3px solid black;">
         <div class="card-body">
-            <p>CIERRE Z - NOTA DE CREDITO:</p>
+            <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">CIERRE Z - NOTA DE CREDITO:</p>
             <div class="cierreZ-Ncredit" style="font-size: xx-large; font-weight: 500;"></div>
-            <p>RECAUDADO:</p>
+            <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">RECAUDADO:</p>
             <div class="recaudado" style="font-size: xx-large; font-weight: 500;"></div>
         </div>
     </div>    
     <div class="card" style="background-color: blanchedalmond; border: 3px solid black;">
     <div class="card-body">
-        <p>TOTAL GASTOS:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL GASTOS:</p>
     <div class="totalGastos" style="font-size: xx-large; font-weight: 500;"></div>
-    <p>COMPRAS A:</p>
+    <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">COMPRAS A:</p>
     <div class="resultGlobalAcompras2" style="font-size: xx-large; font-weight: 500;"></div>    
-    <p>COMPRAS B:</p>
+    <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">COMPRAS B:</p>
     <div class="resultGlobalB2" style="font-size: xx-large; font-weight: 500;"></div>    
-    <p>TOTAL COMPRAS A B:</p>
+    <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL COMPRAS A B:</p>
     <div class="comprasAB" style="font-size: xx-large; font-weight: 500;"></div>
     </div>
 </div>
     <div class="card" style="background-color: rgb(169, 169, 169); border: 3px solid black;">
         <div class="card-body">
-        <p>VENTAS A (S/IVA):</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">VENTAS A (S/IVA):</p>
         <div class="comprasAsIVA" style="font-size: xx-large; font-weight: 500;"></div>
-        <p>TOTAL VENTAS B:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL VENTAS B:</p>
         <div class="totalComprasB" style="font-size: xx-large; font-weight: 500;"></div>
-        <p>TOTAL VENTAS:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">TOTAL VENTAS:</p>
         <div class="totalVentasFinal" style="font-size: xx-large; font-weight: 500;"></div>
         </div>
     </div>
     <div class="card" style="background-color: rgb(153, 211, 55); border: 3px solid black;">
         <div class="card-body">
-        <p>UTILIDAD BRUTA:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">UTILIDAD BRUTA:</p>
         <div class="utilidad_bruta" style="font-size: xx-large; font-weight: 500;"></div>
-        <p>UTILIDAD REAL:</p>
+        <p style="font-size:x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">UTILIDAD REAL:</p>
         <div class="utilidadReal" style="font-size: xx-large; font-weight: 500;"></div>
     </div>
     </div>

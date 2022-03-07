@@ -64,50 +64,55 @@ io.on('connect', socket => {
         socket.on("base-data-vieja-inicial", async () => { 
             try{
                 let responce = await mongoCrud.cajaAnterior(fecha_ant);                
-                    if(responce == null)
+                    if(responce == null){
                         await mongoCrud.create({fecha: fecha_ant});
-                responce = await mongoCrud.cajaAnterior(fecha_ant);
-                console.log("responce "+responce)
+                        responce = await mongoCrud.cajaAnterior(fecha_ant);
+                    }
+                //console.log("responce "+responce)
                 socket.emit("dataVieja", responce);
                 fecha_ant = undefined;
             }catch(err){
                 console.log("ERROR EN LECTURA INICIAL " + err)
             }
         })    
-    }else{
-        console.log("inicio")
-        socket.emit("fecha-hoy", fecha.fecha);
-        socket.on("base-data-inicial", async () => { 
-            try{
-                let responce = await mongoCrud.read();
-                    if(responce == null)
-                        await mongoCrud.create({fecha: fecha.fecha});
-                responce = await mongoCrud.read();
-                socket.emit("allData", responce);
-            }catch(err){
-                console.log("ERROR EN LECTURA INICIAL " + err)
-            }
+    }
+       
+    socket.emit("fecha-hoy", fecha.fecha);
+    socket.on("base-data-inicial", async () => { 
+        try{
+            let responce = await mongoCrud.read();
+               if(responce == null)
+                    await mongoCrud.create({fecha: fecha.fecha});
+            responce = await mongoCrud.read();
+            socket.emit("allData", responce);
+        }catch(err){
+            console.log("ERROR EN LECTURA INICIAL " + err)
+        }
     })   
-    }   
+            
     socket.on("nuevo-dato", async dato => {
         await mongoCrud.create(dato);
         const reWrite = await mongoCrud.read();
         socket.emit("allData", reWrite);
     });
+    let fechaAnt; 
+    
     socket.on("dato-anterior", async dato => {
-        let fecha;
-        socket.emit("fecha-anterior");        
-        socket.on("res-fecha-anterior", fecha_ant => {
-            fecha =  fecha_ant;
-            //console.log(fecha +" D anterior")
+        socket.emit("fecha-anterior");
+        socket.on("res-fecha-anterior", async fechaCli => {
+            fechaAnt = fechaCli;
+            console.log("res_ant "+fechaAnt)
+            console.log("dato-anterior")
+            console.log(dato)
+            console.log(fechaAnt)
+            await mongoCrud.create(dato, fechaAnt);
+            const reWrite =  await mongoCrud.cajaAnterior(fechaAnt);
+            socket.emit("dataVieja", reWrite);
+            fechaAnt = undefined;
         })
-        //console.log(fecha)                
-        await mongoCrud.create(dato, fecha);        
-        const reWrite =  await mongoCrud.cajaAnterior(fecha);
-        socket.emit("allData", reWrite);
     });
     socket.on("cierre-caja", async () =>{
-        return mongoCrud.ingresarTotal();
+        return mongoCrud.ingresarTotal() ;
     })
     socket.on("getMonth", async data => {
       const result = await buscarModel.buscarColeccion(data);
@@ -153,13 +158,14 @@ app.get("/index-ant", loginMiddleware.logged, async (req, res) => {
     return  res.sendFile("client/index-ant.html", {root: __dirname });
 })
 app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {    
-    if(fecha === fecha.fecha){
-        return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
-    }else{       
-       fecha_ant = fecha.fecha;
-       console.log("desde get "+fecha_ant)
-       return res.redirect("/index-ant");
-    }
+    // if(fecha === fecha.fecha){
+    //     return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
+    // }else{       
+    //    fecha_ant = fecha.fecha;
+    //    console.log("desde get "+fecha_ant)
+    //    return res.redirect("/index-ant");
+    // }
+    res.redirect("/")
 })
 
 app.post("/formSubmit", loginMiddleware.logged, async (req, res) => {
