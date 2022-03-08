@@ -1,29 +1,22 @@
-var loginOk = false;
-var adminOk = false;
+var adminOk;
 
 const middlewares = {
 
     isLogin : function (req, res, next) {
-        // console.log(req.user)
-        // if (req.user) return next();
-        // res.redirect('/');
         let log = req.body
         const admin = {usuario: "capadmin", contraseña: "capri2665" }
-        const user = {usuario: "capadmin", contraseña: "capri2665" }
+        //const user = {usuario: "capadmin", contraseña: "capri2665" }
         if(admin.usuario == log.usuario && admin.contraseña == log.contraseña){
-            adminOk = true;            
-            return res.redirect('/'), next()
-        }
-        if(user.usuario == log.usuario && user.contraseña == log.contraseña){
-            loginOk = true;
-              res.redirect('/')
-              return next()
+            adminOk=true;
+            return adminOk, next();
         }else{            
             return res.redirect("/login");
         } 
     },
-    logged : function (req, res, next) {        
-        if(loginOk || adminOk){           
+    logged : function (req, res, next) {
+        const check = require("../server");
+        console.log(check)
+        if(check){           
               return next()
         }else{            
           return res.redirect('/login');
@@ -31,7 +24,7 @@ const middlewares = {
     },
     superAdmin : function (req, res, next){
         if(adminOk){
-            return next()
+            return next() 
       }else{
         return res.redirect('/login')
            
@@ -43,11 +36,18 @@ const middlewares = {
         }else{
             return false;
         }
-    },
+    },  
+    logOk: function () {
+        return true;
+    }, 
+    logNotOk: function () {
+        return false;
+    }, 
     salir: function () {
         loginOk = false;
         adminOk = false;
     }
     
 };
+
 module.exports = middlewares;

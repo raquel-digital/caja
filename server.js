@@ -18,46 +18,22 @@ const PORT = process.env.PORT || 8080;
 app.use(express.static('./client'));
 //middleware
 const loginMiddleware = require("./utils/midleware")
-
+var login = false;//habilitar usuarios
 //Recuperamos los datos de MONGO
 
 var formCaja;
-var emitirCaja = false
-
+var emitirCaja = false;
+var login = false;
 var fecha_ant = undefined; 
 
-// async function readBase(){
-//     try{
-//         let fecha = require("./utils/fecha");        
-//         allData = await mongoCrud.read();
-//         if(allData.fecha == null)
-//         await mongoCrud.create({fecha: fecha.fecha});
-//         dataHoy = allData;
-//         return allData = await mongoCrud.read();
-//        }catch(err){
-//            console.log("no se pudo crear BASE"+err)
-//        }
-// }
-// readBase()
 
 //WebSocket recibimos data del cliente
-io.on('connect', socket => {
-    //inicia pagina enviamos la fecha
-    // if(allData){
-    //     socket.emit("allData", allData);
-    // }else{
-    //     (async () => {
-    //         try{
-    //         //  allData = await mongoCrud.read();
-    //         //  if(allData == null)
-    //         //  await mongoCrud.create({fecha: fecha.fecha});
-    //         //  return allData = await mongoCrud.read();
-    //         allData = await mongoCrud.cajaAnterior(fecha.fecha);
-    //         }catch(err){
-    //             console.log("no se pudo crear BASE"+err)
-    //         }
-    //      })()
-    //}  
+ io.on('connect', socket => {
+    if(login){
+        socket.emit("loginOK", login);
+        login=false;
+       // module.exports = login;
+    }
     if(fecha_ant != undefined){
         console.log(fecha_ant);
         socket.emit("fecha_ant", fecha_ant)
@@ -101,10 +77,10 @@ io.on('connect', socket => {
         socket.emit("fecha-anterior");
         socket.on("res-fecha-anterior", async fechaCli => {
             fechaAnt = fechaCli;
-            console.log("res_ant "+fechaAnt)
-            console.log("dato-anterior")
-            console.log(dato)
-            console.log(fechaAnt)
+            // console.log("res_ant "+fechaAnt)
+            // console.log("dato-anterior")
+            // console.log(dato)
+            // console.log(fechaAnt)
             await mongoCrud.create(dato, fechaAnt);
             const reWrite =  await mongoCrud.cajaAnterior(fechaAnt);
             socket.emit("dataVieja", reWrite);
@@ -127,14 +103,32 @@ io.on('connect', socket => {
         socket.emit("form", formCaja);
         emitirCaja =  false;
     }
+    
     socket.on("salir", () => {
         loginMiddleware.salir();
     })
 })
+function checkLog(){
+io.on('connect', socket => {
+    socket.emit("login-check", () => {
+        socket.on("login-status", status => {
+            const state = status;
+            console.log("sattus: " +state)
+            return state;
+        });
+    })
+    })
+}
 
 app.get("/", loginMiddleware.logged, async (req, res) => {
     return res.sendFile('client/indexx.html', {root: __dirname })
 })
+app.post('/singup', loginMiddleware.isLogin, (req, res) => {
+   login = true; 
+   module.exports = login;
+   res.redirect('/')
+});
+
 app.get("/login", (req, res) => {
     return res.sendFile('client/login.html', {root: __dirname })
 })
@@ -145,37 +139,32 @@ app.get("/control-mes-deposito", loginMiddleware.logged, (req, res) => {
     return  res.sendFile('client/depositos-mensuales.html', {root: __dirname })
 })
 app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {
-       
-     fecha_ant = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
-     if(fecha === fecha.fecha){
+    
+    fecha_ant = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
+    if(fecha === fecha.fecha){
         return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
-     }else{
+    }else{
         //allData = await mongoCrud.cajaAnterior(fecha);
         return res.redirect("/index-ant");
-     }
+    }
 })
-app.get("/index-ant", loginMiddleware.logged, async (req, res) => {    
+app.get("/index-ant", loginMiddleware.logged, async (req, res) => {
+   
     return  res.sendFile("client/index-ant.html", {root: __dirname });
 })
-app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {    
-    // if(fecha === fecha.fecha){
-    //     return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
-    // }else{       
-    //    fecha_ant = fecha.fecha;
-    //    console.log("desde get "+fecha_ant)
-    //    return res.redirect("/index-ant");
-    // }
+app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {
+   
     res.redirect("/")
 })
 
 app.post("/formSubmit", loginMiddleware.logged, async (req, res) => {
+    
     formCaja = req.body;
     await mongoCrud.constrolMensual(formCaja);
     emitirCaja = true;
-   return res.redirect("/controlMesual");
+return res.redirect("/controlMesual");
 })
 
-app.post('/singup', loginMiddleware.isLogin);
 
 http.listen(PORT, () => {
     console.log(`servidor escuchando en http://localhost:${PORT}`);
@@ -186,3 +175,7 @@ process.on('warning', e => console.warn(e.stack));
 http.on('error', error => {
     console.log('error en el servidor:', error);
 });
+
+module.exports = login;
+
+

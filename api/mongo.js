@@ -18,14 +18,14 @@ const mongo = {
     },
     create: async function (data, fechaModel) {
         try{
-            console.log(data)
-            console.log(fechaModel)
+            //console.log(data)
+            //console.log(fechaModel)
             let test;
             if(fechaModel != undefined){ 
                 fecha.fecha = fechaModel;
                 cajaModel = await buscarModel.conectarBase(fechaModel);
                 test = await cajaModel.find();
-                console.log("desde MONGO CON FECHA")
+                //console.log("desde MONGO CON FECHA")
             }else{
                 fecha.fecha = fecha.fecha
                 cajaModel = cajaHoy;

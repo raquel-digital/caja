@@ -3,6 +3,13 @@ const socket = io.connect();
 var copiaData;
 var envioData;
 var fechaCli;
+var login=false;
+socket.on("loginOK", res => {
+  login=res;
+})
+socket.on("login-check", () => {
+  socket.emit("login-status", login);
+})
 
 socket.on("fecha-hoy", data => {
   fechaCli = data;  
@@ -12,6 +19,7 @@ socket.emit("base-data-inicial");
 let contabilizar = false;
 socket.on("allData", data => {  
     copiaData = data;
+    console.log(fechaCli +" "+data[0].fecha)
     if(data[0].fecha != fechaCli){
       envioData = "dato-anterior";
     }else{
@@ -232,8 +240,7 @@ socket.on("allData", data => {
           
     }
       //nos aseguramos que la caja contabilice bien
-      contarCaja();
-
+      //contarCaja();
      })
 
 function ingresarTransferenciaICBC(){
@@ -405,10 +412,11 @@ function queMes(mes){
 }
 
 function salir(){
+  login=false;
+  socket.emit("login-status", login);
   socket.emit("salir")
 }
 
 socket.on("fecha-anterior", () =>{
   socket.emit("res-fecha-anterior", fechaCli); 
 });
- 

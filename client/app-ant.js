@@ -4,6 +4,14 @@ var copiaData;
 var envioData;
 var fechaCli;
 var fechaActual;
+var login=false;
+
+socket.on("loginOK", res => {
+  login=res;
+})
+socket.on("login-check", () => {
+  socket.emit("login-status", login);
+})
 
 socket.on("fecha-hoy", fecha => {
   fechaActual = fecha;
