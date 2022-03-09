@@ -141,9 +141,8 @@ app.get("/control-mes-deposito", loginMiddleware.logged, (req, res) => {
     return  res.sendFile('client/depositos-mensuales.html', {root: __dirname })
 })
 app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {
-    
     fecha_ant = `${req.body.dia}-${req.body.mes}-${req.body.anio}`;
-    if(fecha === fecha.fecha){
+    if(fecha_ant === fecha.fecha){
         return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
     }else{
         //allData = await mongoCrud.cajaAnterior(fecha);
