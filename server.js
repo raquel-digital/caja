@@ -121,6 +121,8 @@ io.on('connect', socket => {
 }
 
 app.get("/", loginMiddleware.logged, async (req, res) => {
+    await require('./coneccion-mongo/mongoCompas');
+    await readBase();
     return res.sendFile('client/indexx.html', {root: __dirname })
 })
 app.post('/singup', loginMiddleware.isLogin, (req, res) => {
@@ -153,7 +155,6 @@ app.get("/index-ant", loginMiddleware.logged, async (req, res) => {
     return  res.sendFile("client/index-ant.html", {root: __dirname });
 })
 app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {
-   
     res.redirect("/")
 })
 
@@ -175,6 +176,19 @@ process.on('warning', e => console.warn(e.stack));
 http.on('error', error => {
     console.log('error en el servidor:', error);
 });
+
+async function readBase(){
+    try{
+        let fecha = require("./utils/fecha");        
+        allData = await mongoCrud.read();
+        if(allData.fecha == null)
+        await mongoCrud.create({fecha: fecha.fecha});
+        dataHoy = allData;
+        return allData = await mongoCrud.read();
+       }catch(err){
+           console.log("no se pudo crear BASE"+err)
+       }
+}
 
 module.exports = login;
 
