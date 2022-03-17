@@ -122,9 +122,14 @@ app.post("/formSubmit", loginMiddleware.logged, async (req, res) => {
     emitirCaja = true;
     res.redirect("/controlMesual");
 })
-
 app.post('/singup', loginMiddleware.isLogin);
 
+app.post("/registro-dato", loginMiddleware.logged, async (req, res) => {
+    const dato = req.body;
+    await mongoCrud.create(dato);
+    allData = await mongoCrud.read();
+    res.redirect("/");
+})
 http.listen(PORT, () => {
     console.log(`servidor escuchando en http://localhost:${PORT}`);
 });

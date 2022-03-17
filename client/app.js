@@ -304,12 +304,15 @@ function ingresarFacturas(empresa, monto, tipo){
     let modelResult;
     let resultadoSuma = 0;
     if(tipo == 'facturaA'){
+        
         model = {gasto_facturaA: modelInt};
         copiaData[0].gasto_facturaA.forEach(e => {
             resultadoSuma += e.monto;
         })
         const resultS_iva = (resultadoSuma + montoValue) / 1.21;
         modelResult = {resultado_facturaA: resultS_iva};
+        console.log(model)
+        console.log(modelResult)
     }
     if(tipo == 'comprasA'){
         model = {compras_facturaA: modelInt};

@@ -68,15 +68,21 @@
 <div class="row">
     <div class="col-6" style="background-color: rgb(166, 253, 185);">
     <hr>
-    <h3>Retiros De Caja</h3>    
-    <input class="motivoCaja" type="text" placeholder="motivo" onfocus="this.value=''">
-    <input class="montoCaja" type="number" placeholder="monto" onfocus="this.value=''">
-    <button onclick="retiroDeCaja()">confirmar</button>
+    <h3>Retiros De Caja</h3>
+    <form action="/registro-dato" method="post">        
+        <input class="motivoCaja" type="text" placeholder="motivo" onfocus="this.value=''" name="retiro_de_caja[cliente]">
+        <input class="montoCaja" type="number" placeholder="monto" onfocus="this.value=''" name="retiro_de_caja[monto]">
+        <button type="submit">confirmar</button>
+    </form>    
+    
     <div class="resultRetiroDeCaja"></div>
     <hr>
     <div class="col">
         <p>Saldo De Caja (-1500):</p>
-        <input class="saldoCaja" type="number" onfocus="this.value=''"><button onclick="saldoCaja()">confirmar</button>
+        <form action="/registro-dato" method="post">
+            <input class="saldoCaja" type="number" onfocus="this.value=''" name="saldo_caja">
+            <button type="submit">confirmar</button>
+        </form>        
         <div class="col-6 resultsaldoCaja"></div>
     </div>    
     </div>
@@ -84,13 +90,17 @@
         <hr> 
         <h3>Gastos Generales:</h3>
         <p>Comida:</p>
-        <input class="comidaGastos" type="number" onfocus="this.value=''">
-        <button onclick="gastosComida()">confirmar</button>
+            <form action="/registro-dato" method="post">
+                <input class="comidaGastos" type="number" onfocus="this.value=''" name="gasto_comida" placeholder="monto">
+                <button type="submit">confirmar</button>
+            </form>
         <div class="col-6 resultasoComida"></div>
         <p>Otros:</p>
-        <input class="gastoEmbalajeMotivo" type="text" onfocus="this.value=''" placeholder="motivo">
-        <input class="gastoEmbalaje" type="number" onfocus="this.value=''" placeholder="monto">
-        <button onclick="gastoEmbalaje()">confirmar</button>
+        <form action="/registro-dato" method="post">        
+            <input class="gastoEmbalajeMotivo" type="text" onfocus="this.value=''" placeholder="motivo" name="gasto_embalaje[motivo]">
+            <input class="gastoEmbalaje" type="number" onfocus="this.value=''" placeholder="monto" name="gasto_embalaje[gasto_embalaje]">
+            <button type="submit">confirmar</button>
+        </form>
         <div class="col-6 resultgastoEmbalaje"></div>
         <hr>
 </div>
@@ -99,10 +109,12 @@
 <div class="row">
     <div class="col-6" style="background-color: azure;">
         <hr>
-        <h3>Transferencias ICBC</h3>    
-        <input class="clienteICBC" type="text" placeholder="cliente" onfocus="this.value=''">
-        <input class="montoICBC" type="number" placeholder="monto" onfocus="this.value=''">
-        <button onclick="ingresarTransferenciaICBC()">confirmar</button>
+        <h3>Transferencias ICBC</h3>
+        <form action="/registro-dato" method="post">        
+            <input class="clienteICBC" type="text" placeholder="cliente" onfocus="this.value=''" name="transferencias_ICBC[cliente]">
+            <input class="montoICBC" type="number" placeholder="monto" onfocus="this.value=''" name="transferencias_ICBC[monto]">
+            <button type="submit">confirmar</button>
+        </form>
         <div class="transferenciaICBC"></div>
         <hr>
     </div>
@@ -110,12 +122,16 @@
         <hr> 
         <h3>Gastos Pagos Por El Cliente:</h3>
         <p>Correo:</p>
-        <input class="correoGastos" type="number" onfocus="this.value=''">
-        <button onclick="gastosCorreo()">confirmar</button>
+            <form action="/registro-dato" method="post">
+                <input class="correoGastos" type="number" onfocus="this.value=''" name="gasto_correo">
+                <button type="submit">confirmar</button>
+            </form>
         <div class="col-6 resultcorreoGastos"></div>
         <p>Flete:</p>
-        <input class="gastoFlete" type="number" onfocus="this.value=''">
-        <button onclick="gastoFlete()">confirmar</button>
+            <form action="/registro-dato" method="post">
+                <input class="gastoFlete" type="number" onfocus="this.value=''" name="gasto_flete">
+                <button type="submit">confirmar</button>
+            </form>
         <div class="col-6 resultgastoFlete"></div>
         <hr>
 </div>
@@ -125,18 +141,27 @@
     <div class="col-6" style="background-color:rgb(255, 196, 187);">
         <hr>
         <h3>Transferencias Santander</h3>
-        <input class="clienteSantander" type="text" placeholder="cliente" onfocus="this.value=''">
-        <input class="montoSantander" type="number" placeholder="monto" onfocus="this.value=''">
-        <button onclick="ingresarTransferenciaSantander()">confirmar</button>
+            <form action="/registro-dato" method="post">        
+                <input class="clienteSantander" type="text" placeholder="cliente" onfocus="this.value=''" name="transferencias_Santander[cliente]">
+                <input class="montoSantander" type="number" placeholder="monto" onfocus="this.value=''" name="transferencias_Santander[cliente]">
+                <button type="submit">confirmar</button>
+            </form>
         <div class="transferenciaSantander"></div>
         <hr>
     </div>
     <div class="col-6" style="background-color:rgb(255, 238, 235);">
         <hr>
         <h3>GASTOS CON FACTURA A</h3>
-        <input class="facturaA" type="text" placeholder="empresa" onfocus="this.value=''">
-        <input class="facturaAmonto" type="number" placeholder="monto" onfocus="this.value=''">
-        <button onclick="ingresarFacturas('.facturaA', '.facturaAmonto', 'facturaA')">confirmar</button>
+            <form action="/registro-dato" method="post">        
+                <input class="facturaA" type="text" placeholder="empresa" onfocus="this.value=''">
+                <input class="facturaAmonto" type="number" placeholder="monto" onfocus="this.value=''">
+                <button type="submit" onclick="ingresarFacturas('.facturaA', '.facturaAmonto', 'facturaA')">confirmar</button>
+            </form>
+
+        
+
+
+        <!-- <button >confirmar</button> -->
         <div class="resultfacturaA"></div>        
         <hr>
         <div class="resultGlobalA"></div>

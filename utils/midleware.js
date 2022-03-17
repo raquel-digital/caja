@@ -9,6 +9,7 @@ const middlewares = {
         // res.redirect('/');
         let log = req.body
         const admin = {usuario: "capadmin", contraseña: "capri2665" }
+        const user = {usuario: "capadmin", contraseña: "capri2665" }
         if(admin.usuario == log.usuario && admin.contraseña == log.contraseña){
             adminOk = true;
             res.redirect('/')
