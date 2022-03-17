@@ -247,7 +247,7 @@ function ingresarTransferenciaSantander(){
     return socket.emit(envioData, model);
 }
 function gastosComida(){
-    let valor = parseFloat(document.querySelector(".comidaGastos").value);
+    let valor = parseInt(document.querySelector(".comidaGastos").value);
     //let valorSuma = valor + copiaData[0].gasto_comida;
     const gastoComida = {gasto_comida: valor};
     console.log(gastoComida)
