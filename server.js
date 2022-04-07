@@ -13,7 +13,7 @@ const { async } = require('rxjs');
 const buscarModel = require("./utils/buscarModel");
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const PORT = 1000;
+const PORT = process.env.PORT || 1000;
 //carpeta estaticos
 app.use(express.static('./client'));
 //middleware
