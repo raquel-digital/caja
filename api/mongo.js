@@ -18,7 +18,7 @@ const mongo = {
     },
     create: async function (data, fechaModel) {
         try{
-            //console.log(data)
+            console.log(data)
             //console.log(fechaModel)
             let test;
             if(fechaModel != undefined){ 

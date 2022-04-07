@@ -19,7 +19,6 @@ socket.emit("base-data-inicial");
 let contabilizar = false;
 socket.on("allData", data => {  
     copiaData = data;
-    console.log(fechaCli +" "+data[0].fecha)
     if(data[0].fecha != fechaCli){
       envioData = "dato-anterior";
     }else{
@@ -27,6 +26,7 @@ socket.on("allData", data => {
     }
     console.log(envioData)
     if(data.length > 0){
+      console.log(data[0])
         document.querySelector(".fecha").innerHTML = `<h1>FECHA: ${data[0].fecha}</h1>`;
         const mesEnCurso = data[0].fecha.split("-");
         const anio = mesEnCurso[2]        

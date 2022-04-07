@@ -1,10 +1,12 @@
 const socket = io.connect();
 
+
 var allData;
 let totalVentas = 0;
 let totalCierreZ = 0;
-
+socket.emit("base-data-inicial")
 socket.on("allData", data => {
+    console.log(data)
     allData = data;
     document.querySelector(".fecha").innerHTML = `<h1>FECHA: ${data[0].fecha}</h1>`;
     socket.emit("getMonth" ,data[0].fecha);

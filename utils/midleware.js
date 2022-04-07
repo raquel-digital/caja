@@ -15,7 +15,6 @@ const middlewares = {
     },
     logged : function (req, res, next) {
         const check = require("../server");
-        console.log(check)
         if(check){           
               return next()
         }else{            

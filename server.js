@@ -13,11 +13,12 @@ const { async } = require('rxjs');
 const buscarModel = require("./utils/buscarModel");
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const PORT = process.env.PORT || 8080;
+const PORT = 1000;
 //carpeta estaticos
 app.use(express.static('./client'));
 //middleware
-const loginMiddleware = require("./utils/midleware")
+const loginMiddleware = require("./utils/midleware");
+const { connectableObservableDescriptor } = require('rxjs/internal/observable/ConnectableObservable');
 var login = false;//habilitar usuarios
 //Recuperamos los datos de MONGO
 
@@ -29,13 +30,13 @@ var fecha_ant = undefined;
 
 //WebSocket recibimos data del cliente
  io.on('connect', socket => {
+    socket.emit("test", "ok")
     if(login){
         socket.emit("loginOK", login);
         login=false;
-       // module.exports = login;
     }
     if(fecha_ant != undefined){
-        console.log(fecha_ant);
+        console.log("fecha anterior: " + fecha_ant);
         socket.emit("fecha_ant", fecha_ant)
         socket.on("base-data-vieja-inicial", async () => { 
             try{
@@ -52,7 +53,7 @@ var fecha_ant = undefined;
             }
         })    
     }
-       
+   
     socket.emit("fecha-hoy", fecha.fecha);
     socket.on("base-data-inicial", async () => { 
         try{
@@ -145,7 +146,7 @@ app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {
     if(fecha_ant === fecha.fecha){
         return res.send(`<h1>ERROR: FECHA EN CURSO VOLVER A LA PAGINA PRINCIPAL<h1/>`)
     }else{
-        //allData = await mongoCrud.cajaAnterior(fecha);
+       
         return res.redirect("/index-ant");
     }
 })
