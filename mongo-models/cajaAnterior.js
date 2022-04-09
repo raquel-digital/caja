@@ -43,7 +43,8 @@ const schema = mongoose.Schema({
     total_comprasB : {type: Number},
     total_ventas : {type: Number},
     utilidad_bruta : {type: Number},
-    utilidad_real : {type: Number}
+    utilidad_real : {type: Number},
+    transferencias_minorista: [{type: Number}]
 });
 
 function cajaAnterior(caja){

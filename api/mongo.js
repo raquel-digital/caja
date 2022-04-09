@@ -227,7 +227,14 @@ const mongo = {
                   await this.ingresarTotal(data.credito_debito, "credito-debito")
                   return result;
             }
-            
+            if(data.transferencias_minorista != null){
+                if(test.length == 0){
+                    return await cajaModel.create({fecha: fecha.fecha}, data);
+                  }
+                let result =  await cajaModel.findOneAndUpdate({fecha: fecha.fecha}, {$push: {transferencias_minorista: data.transferencias_minorista}});
+                
+                return result;
+            }
 
             if(test.length == 0){
                 console.log("Base de datos. Creada.");

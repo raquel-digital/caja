@@ -42,6 +42,13 @@ socket.on("getMonthResult", data => {
                     </tbody>
                 </tr>
             </th>
+            <th scope="col">Transferencias Minorista
+                <tr>
+                    <tbody class="tableMinorista">
+                        <td scope="col">MONTO</th>
+                    </tbody>
+                </tr>
+            </th>
         </tr>
     </thead>        
     </table>`
@@ -68,6 +75,13 @@ socket.on("getMonthResult", data => {
                 `;
             })  
         }
+        if(allData[0].transferencias_minorista != null){
+            allData[0].transferencias_minorista.forEach( e => {
+                document.querySelector(".tableMinorista").innerHTML += `
+                <tr><td>${allData[0].fecha}</td><td>transferencia: ${e}</b></td><tr>
+                `;
+            })  
+        }
         
  
         
@@ -90,6 +104,13 @@ socket.on("getMonthResult", data => {
             el[0].transferencias_Santander.forEach( e => {
                 document.querySelector(".tableSantander").innerHTML += `
                 <tr><td>${el[0].fecha}</td><td>cliente: ${e.cliente}</td><td> monto: <b>${e.monto}</b></td><tr>
+                `;
+            })  
+        }
+        if(el[0].transferencias_minorista != null){
+            el[0].transferencias_minorista.forEach( e => {
+                document.querySelector(".tableMinorista").innerHTML += `
+                <tr><td>${el[0].fecha}</td><td>transferencia: ${e}</b></td><tr>
                 `;
             })  
         }

@@ -33,13 +33,16 @@ socket.on("allData", data => {
         document.querySelector(".mes-en-curso").textContent =`${mesEnCurso[1]}`
         document.querySelector(".anio-en-curso").value =`${mesEnCurso[2]}`
         if(data[0].retiro_de_caja != null){
+            let sumaRetiros = 0;
             let retiroDeCaja = document.querySelector(".resultRetiroDeCaja");    
             retiroDeCaja.innerHTML = ``;
                data[0].retiro_de_caja.forEach(e => {
                 retiroDeCaja.innerHTML += `<div class="row">
                    <li>motivo: <b>${e.cliente} </b>monto: <b>${e.monto}</b></li><img src="https://cdn-icons-png.flaticon.com/512/32/32355.png" width="15" height="15" alt="">;
                    </div>`
+                   sumaRetiros += e.monto;
                 })
+                document.querySelector(".sumaDeRetiros").innerHTML =  `<b>TOTAL RETIROS: ${sumaRetiros}</b> `
         }
         if(data[0].saldo_caja != null){
             let saldoCaja = document.querySelector(".resultsaldoCaja");
@@ -237,6 +240,16 @@ socket.on("allData", data => {
             let result = document.querySelector(".utilidadReal");
             result.innerHTML = `<p>${data[0].utilidad_real}</p>`;
           }
+          if(data[0].transferencias_minorista != null){
+            let result = document.querySelector(".resultMinoristaTransferencia");
+            result.innerHTML = "";
+            data[0].transferencias_minorista.forEach(e => {
+              console.log(e)
+              result.innerHTML += `
+                  <li><b>trasferencia: ${e}</b></li>
+                  `;
+      })
+          }
           
     }
       //nos aseguramos que la caja contabilice bien
@@ -398,6 +411,12 @@ function contarCaja(){
   }else{
     return;
   }
+}
+
+function minoristaTransferencia(){
+  const valor = document.querySelector(".minoristaTransferencia").value;
+  const data =  {transferencias_minorista: valor}
+  return socket.emit(envioData, data);
 }
 
 //------FECHA----------------

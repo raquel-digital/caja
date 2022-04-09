@@ -73,6 +73,7 @@
     <input class="montoCaja" type="number" placeholder="monto" onfocus="this.value=''">
     <button onclick="retiroDeCaja()">confirmar</button>
     <div class="resultRetiroDeCaja"></div>
+    <div class="sumaDeRetiros"></div>
     <hr>
     <div class="col">
         <p>Saldo De Caja (-1500):</p>
@@ -171,7 +172,7 @@
 <div class="row">
     <div class="col-6" style="background-color:#5a65ff;">
         <hr>
-            <h3>RETIROS MP</h3>
+            <h4>anotación venta de MP</h3>
             <input class="comprasMP" type="text" placeholder="cliente" onfocus="this.value=''">
             <input class="montoMP" type="number" placeholder="monto" onfocus="this.value=''">
             <button onclick="comprasMP('.comprasMP', '.montoMP', 'comprasMP')">confirmar</button>
@@ -191,6 +192,16 @@
         </div>
     
 </div>
+<div class="row">
+    <div class="col-6" style="background-color:#f7f1c5;">
+        <hr>
+            <h3>Transferencias MINORISTA</h3>
+            <input class="minoristaTransferencia" type="number" placeholder="monto" onfocus="this.value=''">
+            <button onclick="minoristaTransferencia()">confirmar</button>
+            <div class="resultMinoristaTransferencia"></div>        
+            <hr>
+    </div> 
+</div>  
 <hr>
 <div class="row">
  <span class="col-3"></span>   <h1>INGRESOS DE CAJA AL FINAL DE DIA</h1>
@@ -198,7 +209,7 @@
 <div class="row">
     <div class="col-1"></div>
     <div style="background-color: rgb(146, 146, 245);">        
-        <p>MERCADOPAGO (RETIRADO):</p>
+        <h3>MERCADOPAGO (RETIRADO):</h3>
         <input class="mercadopagoRetirado" type="number" onfocus="this.value=''">
         <button onclick="cajaCierre('.mercadopagoRetirado', '.resultadoMercadopagoRetirado')">confirmar</button>
         <p>TOTAL:</p>

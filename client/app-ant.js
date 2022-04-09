@@ -409,6 +409,11 @@ function contarCaja(){
     return;
   }
 }
+function minoristaTransferencia(){
+  const valor = document.querySelector(".minoristaTransferencia").value;
+  const data =  {transferencias_minorista: valor}
+  return socket.emit(envioData, data);
+}
 
 //------FECHA----------------
 var anio = new Date().getFullYear();
