@@ -13,13 +13,16 @@ socket.on("login-check", () => {
 
 socket.on("fecha-hoy", data => {
   fechaCli = data;  
+  console.log(fechaCli)
 })
 socket.emit("base-data-inicial");
 
 let contabilizar = false;
-socket.on("allData", data => {  
+socket.on("allData", data => {
+    const fech =   data[0].fecha.toLowerCase()
     copiaData = data;
-    if(data[0].fecha != fechaCli){
+    
+    if(fech != fechaCli){
       envioData = "dato-anterior";
     }else{
       envioData = "nuevo-dato";

@@ -18,18 +18,22 @@ const mongo = {
     },
     create: async function (data, fechaModel) {
         try{
-            console.log(data)
+            //console.log(data)
             //console.log(fechaModel)
             let test;
-            if(fechaModel != undefined){ 
-                fecha.fecha = fechaModel;
-                cajaModel = await buscarModel.conectarBase(fechaModel);
+            if(fechaModel != undefined){
+                if(fechaModel == cajaModel.collection.collectionName){
+                    console.log(data)
+                }else{
+                    fecha.fecha = fechaModel;
+                    cajaModel = await buscarModel.conectarBase(fechaModel);
+                }
                 test = await cajaModel.find();
-                //console.log("desde MONGO CON FECHA")
             }else{
                 fecha.fecha = fecha.fecha
                 cajaModel = cajaHoy;
                 test = await cajaModel.find();
+                console.log(cajaModel)
             }
             
             if(data.transferencias_ICBC != null){
@@ -49,6 +53,7 @@ const mongo = {
                 return result;
             }
             if(data.gasto_comida != null){
+                console.log("OK")
                 if(test.length == 0){
                     return await cajaModel.create({fecha: fecha.fecha}, data);
                 }
@@ -443,6 +448,7 @@ const mongo = {
     cajaAnterior: async function (fecha) {
         try{
             let result = await buscarModel.coleccionAnterior(fecha);
+            //let result =  await buscarModel.coleccionCallBack(fecha)
             return result;
         }catch(err){
             console.log("ERROR DE LECTURA EN MODELO "+err)

@@ -36,16 +36,17 @@ var fecha_ant = undefined;
         login=false;
     }
     if(fecha_ant != undefined){
+        console.log("ACTIVADO?")
         console.log("fecha anterior: " + fecha_ant);
         socket.emit("fecha_ant", fecha_ant)
         socket.on("base-data-vieja-inicial", async () => { 
             try{
-                let responce = await mongoCrud.cajaAnterior(fecha_ant);                
-                    if(responce == null){
+                let responce = await mongoCrud.cajaAnterior(fecha_ant);
+                    if(responce == null || responce.length == 0){                        
                         await mongoCrud.create({fecha: fecha_ant});
-                        responce = await mongoCrud.cajaAnterior(fecha_ant);
+                        responce = await mongoCrud.cajaAnterior(fecha_ant);                        
                     }
-                //console.log("responce "+responce)
+                   
                 socket.emit("dataVieja", responce);
                 fecha_ant = undefined;
             }catch(err){
@@ -59,7 +60,7 @@ var fecha_ant = undefined;
         try{
             let responce = await mongoCrud.read();
                if(responce == null)
-                    await mongoCrud.create({fecha: fecha.fecha});
+                    await mongoCrud.create({fecha: fecha.fecha});                   
             responce = await mongoCrud.read();
             socket.emit("allData", responce);
         }catch(err){
@@ -68,26 +69,29 @@ var fecha_ant = undefined;
     })   
             
     socket.on("nuevo-dato", async dato => {
+        console.log(dato)
         await mongoCrud.create(dato);
         const reWrite = await mongoCrud.read();
         socket.emit("allData", reWrite);
     });
-    let fechaAnt; 
-    
-    socket.on("dato-anterior", async dato => {
-        socket.emit("fecha-anterior");
-        socket.on("res-fecha-anterior", async fechaCli => {
-            fechaAnt = fechaCli;
-            // console.log("res_ant "+fechaAnt)
-            // console.log("dato-anterior")
-            // console.log(dato)
-            // console.log(fechaAnt)
-            await mongoCrud.create(dato, fechaAnt);
-            const reWrite =  await mongoCrud.cajaAnterior(fechaAnt);
-            socket.emit("dataVieja", reWrite);
-            fechaAnt = undefined;
-        })
-    });
+     let fechaAnt;
+    // socket.on("dato-anterior", dato => {
+    //     console.log("EN SERVER")
+    //     console.log(dato)
+    //     socket.emit("fecha-anterior");
+    //     socket.on("res-fecha-anterior", async fechaCli => {
+    //         fechaAnt = fechaCli;
+    //         await mongoCrud.create(dato, fechaAnt);
+    //         const reWrite =  await mongoCrud.cajaAnterior(fechaAnt);
+    //         socket.emit("dataVieja", reWrite);
+    //         //fechaAnt = undefined;
+    //     })
+    // });
+    socket.on("dato-anterior", async data => {
+        await mongoCrud.create(data.data, data.fecha);
+        const reWrite =  await mongoCrud.cajaAnterior(data.fecha);
+        socket.emit("dataVieja", reWrite);
+    })
     socket.on("cierre-caja", async () =>{
         return mongoCrud.ingresarTotal() ;
     })
@@ -151,7 +155,6 @@ app.post("/caja-anterior/", loginMiddleware.logged, async (req, res) => {
     }
 })
 app.get("/index-ant", loginMiddleware.logged, async (req, res) => {
-   
     return  res.sendFile("client/index-ant.html", {root: __dirname });
 })
 app.get("/cargar-base", loginMiddleware.logged, async (req, res) => {

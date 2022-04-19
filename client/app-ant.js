@@ -31,10 +31,10 @@ socket.emit("base-data-vieja-inicial");
 
 let contabilizar = false;
 socket.on("dataVieja", data => {
-    console.log(fechaCli) 
-    console.log(data[0].fecha)  
+    //console.log(fechaCli) 
+    //console.log(data[0].fecha)  
     copiaData = data;    
-    console.log(envioData)
+    console.log(data)
     if(data.length > 0){
         document.querySelector(".fecha").innerHTML = `<h1>FECHA: ${data[0].fecha}</h1>`;
         const mesEnCurso = data[0].fecha.split("-");
@@ -262,7 +262,10 @@ function ingresarTransferenciaICBC(){
     monto = parseFloat(monto);
     const transferencia = {monto: monto, cliente: cliente};
     let model = {transferencias_ICBC: transferencia}
-    return socket.emit(envioData, model);
+    //return socket.emit(envioData, model);
+   
+    const dataFecha = {data: model, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
 }
 function ingresarTransferenciaSantander(){
     let cliente = document.querySelector(".clienteSantander").value;
@@ -270,20 +273,25 @@ function ingresarTransferenciaSantander(){
     monto = parseFloat(monto);
     const transferencia = {monto: monto, cliente: cliente};
     let model = {transferencias_Santander: transferencia}
-    return socket.emit(envioData, model);
+    //return socket.emit(envioData, model);
+    const dataFecha = {data: model, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
 }
 function gastosComida(){
-    let valor = parseFloat(document.querySelector(".comidaGastos").value);
-    //let valorSuma = valor + copiaData[0].gasto_comida;
-    const gastoComida = {gasto_comida: valor};
-    console.log(gastoComida)
-    return socket.emit(envioData, gastoComida);
+    let valor = parseFloat(document.querySelector(".comidaGastos").value);    
+    const gastoComida = {gasto_comida: valor};    
+    //return socket.emit(envioData, gastoComida);
+    const dataFecha = {data: gastoComida, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
 }
 function gastoFlete(){
     let valor = parseFloat(document.querySelector(".gastoFlete").value);
     //let valorSuma = valor + copiaData[0].gasto_flete;
     const gastoFlete = {gasto_flete: valor};
-    return socket.emit(envioData, gastoFlete);
+    //return socket.emit(envioData, gastoFlete);
+    const dataFecha = {data: gastoFlete, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
+    
 }
 function ingresarCheques(){
     let cliente = document.querySelector(".chequesClientes").value;
@@ -291,7 +299,9 @@ function ingresarCheques(){
     monto = parseFloat(monto);
     const transferencia = {monto: monto, cliente: cliente};
     let model = {cheques: transferencia}
-  return socket.emit(envioData, model);
+    //return socket.emit(envioData, model);
+    const dataFecha = {data: model, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
 }
 function retiroDeCaja(){    
     let cliente = document.querySelector(".motivoCaja").value;
@@ -299,26 +309,33 @@ function retiroDeCaja(){
     monto = parseFloat(monto);
     const retiro = {monto: monto, cliente: cliente};
     let model = {retiro_de_caja: retiro}
-    //console.log(model)
-    return socket.emit(envioData, model);
+    const dataFecha = {data: model, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
 }
 function saldoCaja(){
     let valor = parseFloat(document.querySelector(".saldoCaja").value);
     const model = {saldo_caja: valor};
-    return socket.emit(envioData, model);
+    //return socket.emit(envioData, model);
+    const dataFecha = {data: model, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
 }
 function gastosCorreo(){
     let valor = parseFloat(document.querySelector(".correoGastos").value);
     //let valorSuma = valor + copiaData[0].gasto_correo;
-    const gastoCorreo = {gasto_correo: valor};
-    return socket.emit(envioData, gastoCorreo);
+    const model = {gasto_correo: valor};
+    //return socket.emit(envioData, gastoCorreo);
+    const dataFecha = {data: model, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
 }
 function gastoEmbalaje(){
     const motivo = document.querySelector(".gastoEmbalajeMotivo").value;
     let valor = parseFloat(document.querySelector(".gastoEmbalaje").value);
     const model = {motivo: motivo, gasto_embalaje: valor}
     const gasto = {gasto_embalaje: model}
-    return socket.emit(envioData, gasto);
+    //return socket.emit(envioData, gasto);
+    const dataFecha = {data: gasto, fecha: fechaCli}    
+    return socket.emit("dato-anterior", dataFecha)
+    
 }
 //tratamos de evitar tanta recursion
 function ingresarFacturas(empresa, monto, tipo){
@@ -359,43 +376,62 @@ function ingresarFacturas(empresa, monto, tipo){
         model = {compras_facturaB: modelInt};
     }
     
-    socket.emit(envioData, modelResult);
-    return socket.emit(envioData, model);
+    //socket.emit(envioData, modelResult);
+    // return socket.emit(envioData, model);
+    const dataFecha = {data: modelResult, fecha: fechaCli}    
+    socket.emit("dato-anterior", dataFecha)
+    const dataFecha2 = {data: model, fecha: fechaCli}    
+    socket.emit("dato-anterior", dataFecha2)
+    return;
 }
 function comprasMP(empresa, monto, tipo){
     const empresaValue = document.querySelector(empresa).value;
     const montoValue = parseFloat(document.querySelector(monto).value);
     const modelInt = {monto: montoValue, empresa: empresaValue};
     const model = {retiros_MP: modelInt};
-    return socket.emit(envioData, model);
+    //return socket.emit(envioData, model);
+    const dataFecha = {data: model, fecha: fechaCli};    
+    return socket.emit("dato-anterior", dataFecha);    
 }
 function cajaCierre(valor, resultado){
     let monto = parseFloat(document.querySelector(valor).value);
     if(resultado == '.resultadoMercadopagoRetirado'){
         const model = {mercadopago_retirado: monto};
-        return socket.emit(envioData, model);
+        //return socket.emit(envioData, model);
+        const dataFecha = {data: model, fecha: fechaCli};    
+        return socket.emit("dato-anterior", dataFecha);   
     }
     if(resultado == '.resultadoMercadopagoMinorista'){           
         const model = {mercadopago_minorista: monto};
-        return socket.emit(envioData, model);
+        //return socket.emit(envioData, model);
+        const dataFecha = {data: model, fecha: fechaCli};    
+        return socket.emit("dato-anterior", dataFecha);  
     }
     if(resultado == '.cierreZ'){        
         const model = {cierre_z: monto};
-        return socket.emit(envioData, model);
+        //return socket.emit(envioData, model);
+        const dataFecha = {data: model, fecha: fechaCli};    
+        return socket.emit("dato-anterior", dataFecha);  
     }
     if(resultado == '.notaDeCredito'){
         //let suma = monto + copiaData[0].notas_de_credito;
         const model = {notas_de_credito: monto};
-        return socket.emit(envioData, model);
+        //return socket.emit(envioData, model);
+        const dataFecha = {data: model, fecha: fechaCli};    
+        return socket.emit("dato-anterior", dataFecha);  
     }
     if(resultado == '.ventasCtaCte'){
         //let suma = monto + copiaData[0].ventas_cta_cte;
         const model = {ventas_cta_cte: monto};
-        return socket.emit(envioData, model);
+        //return socket.emit(envioData, model);
+        const dataFecha = {data: model, fecha: fechaCli};    
+        return socket.emit("dato-anterior", dataFecha);  
     }
     if(resultado == "creditoDebito"){
         const model = {credito_debito: monto};
-        return socket.emit(envioData, model);
+        //return socket.emit(envioData, model);
+        const dataFecha = {data: model, fecha: fechaCli};    
+        return socket.emit("dato-anterior", dataFecha);  
     }
 }
 function cerrameLa12(){
@@ -407,20 +443,24 @@ function contarCaja(){
   if(!contabilizar){
     const model = {cierre_z: 0};
     contabilizar = true;
-    return socket.emit(envioData, model);
+    //return socket.emit(envioData, model);
+    const dataFecha = {data: model, fecha: fechaCli};    
+        return socket.emit("dato-anterior", dataFecha);  
   }else{
     return;
   }
 }
 function minoristaTransferencia(){
   const valor = document.querySelector(".minoristaTransferencia").value;
-  const data =  {transferencias_minorista: valor}
-  return socket.emit(envioData, data);
+  const model =  {transferencias_minorista: valor}
+  //return socket.emit(envioData, data);
+  const dataFecha = {data: model, fecha: fechaCli};    
+        return socket.emit("dato-anterior", dataFecha);  
 }
 
 //------FECHA----------------
 var anio = new Date().getFullYear();
-var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+var meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 let mes = new Date().getMonth();
 let mesEnCurso = queMes(mes);
 let dia = new Date
@@ -433,8 +473,8 @@ function salir(){
   socket.emit("salir")
 }
 
-socket.on("fecha-anterior", () =>{
-  console.log(fechaCli)
-  socket.emit("res-fecha-anterior", fechaCli); 
-});
+// socket.on("fecha-anterior", () =>{
+//   console.log(fechaCli)
+//   socket.emit("res-fecha-anterior", fechaCli); 
+// });
  

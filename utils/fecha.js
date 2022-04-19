@@ -1,5 +1,5 @@
 var anio = new Date().getFullYear();
-var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+var meses = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
 let mes = new Date().getMonth();
 let mesEnCurso = queMes(mes);
 let dia = new Date

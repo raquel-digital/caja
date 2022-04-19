@@ -123,7 +123,7 @@ async function coleccionAnterior(fecha){
             });
             find = await cajaAnterior.find();
         }
-        //console.log("desde coleccion anterior EXITO " + find[0].fecha)
+        //console.log("desde coleccion anterior EXITO " + find)
         return find;
     }
     }catch(err){
@@ -140,4 +140,4 @@ async function conectarBase(fecha){
     }
 }
 
-module.exports = {buscarColeccion, coleccionAnterior, cajaAnterior, conectarBase};
+module.exports = {buscarColeccion, coleccionAnterior, cajaAnterior, conectarBase, coleccionCallBack};
