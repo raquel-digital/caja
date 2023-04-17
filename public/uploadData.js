@@ -20,8 +20,8 @@ function updateData(data){
     document.querySelector(".cierreZ-Ncredit").innerHTML = `${data.cierreZ_Ncredit}`;
     document.querySelector(".resultadocierreZ").innerHTML = `${data.cierre_z}`;
     document.querySelector(".resultadoventasCtaCte").innerHTML = `${data.ventas_cta_cte}`;
-    document.querySelector(".comprasAsIVA").innerHTML = `${data.total_comprasB}`;
-    document.querySelector(".totalComprasB").innerHTML = `${data.comprasA_sIVA}`;
+    document.querySelector(".comprasAsIVA").innerHTML = `${data.comprasA_sIVA}`;
+    document.querySelector(".totalComprasB").innerHTML = `${data.total_comprasB}`;
     document.querySelector(".resultGlobalAcompras2").innerHTML = `${data.resultado_comprasA}`;
     document.querySelector(".comprasAB").innerHTML = `${data.total_comprasAB}`;
     document.querySelector(".totalVentasFinal").innerHTML = `${data.total_ventas}`;
