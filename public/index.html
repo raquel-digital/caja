@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja Mayorista</title>
+    <script src="/socket.io/socket.io.js"></script>   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body topmargin="10px" leftmargin="10px" rightmargin="10px">
+  <div id="allBody">
+        <div class="row">
+            <div id="fecha" class="col"></div>
+        </div>
+        <hr>
+        <div class="ingresoDeDatos">
+            <div class="row">
+                 <div class="col-6" style="background-color: rgb(166, 253, 185);">
+                    <hr>
+                    <h3>Retiros De Caja</h3>    
+                    <input class="motivoCaja" type="text" placeholder="motivo">
+                    <input class="montoCaja" type="number" placeholder="monto">
+                    <!-- <button onclick="retiroDeCaja()">confirmar</button> -->
+                    <button class="retiroDeCaja">confirmar</button>
+                    <div class="resultRetiroDeCaja"></div>
+                    <div class="sumaDeRetiros"></div>
+                    <hr>
+                    <div class="col">
+                        <p>Saldo De Caja (-1500):</p>
+                        <input class="saldoCaja" type="number"><button class="saldoCajaButton">confirmar</button>
+                        <div class="col-6 resultsaldoCaja"></div>
+                    </div>    
+                </div>
+                <div class="col-6" style="background-color: rgb(226, 255, 246);">
+                    <hr> 
+                    <h3>Gastos Generales:</h3>
+                    <p>Comida:</p>
+                    <input class="comidaGastos" type="number">
+                    <button class="gastosComidaButton">confirmar</button>
+                    <div class="col-6 resultadoComida"></div>
+                    <p>Otros:</p>
+                    <input class="gastosOtrosMotivo" type="text" placeholder="motivo">
+                    <input class="gastoOtrosMonto" type="number" placeholder="monto">
+                    <button class="gastoOtrosButton">confirmar</button>
+                    <div class="col-6 resultGastoOtros"></div>
+                    <hr>
+            </div> 
+            </div> 
+            <div class="row">
+                <div class="col-6" style="background-color: azure;">
+                    <hr>
+                    <h3>Transferencias ICBC</h3>    
+                    <input class="clienteICBC" type="text" placeholder="cliente">
+                    <input class="montoICBC" type="number" placeholder="monto">
+                    <button class="ingresarTransferenciaICBCButton">confirmar</button>
+                    <div class="transferenciaICBC"></div>
+                    <hr>
+                </div>
+                <div class="col-6" style="background-color: rgb(226, 255, 246);">
+                    <hr> 
+                    <h3>Gastos Pagos Por El Cliente:</h3>
+                    <p>Correo:</p>
+                    <input class="correoGastos" type="number">
+                    <button class="gastosCorreoButton">confirmar</button>
+                    <div class="col-6 resultcorreoGastos"></div>
+                    <p>Flete:</p>
+                    <input class="gastoFlete" type="number">
+                    <button class="gastoFleteButton">confirmar</button>
+                    <div class="col-6 resultgastoFlete"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" style="background-color:rgb(255, 196, 187);">
+                    <hr>
+                    <h3>Transferencias Santander</h3>
+                    <input class="clienteSantander" type="text" placeholder="cliente">
+                    <input class="montoSantander" type="number" placeholder="monto">
+                    <button class="ingresarTransferenciaSantanderButton">confirmar</button>
+                    <div class="transferenciaSantander"></div>
+                    <hr>
+                </div>
+                <div class="col-6" style="background-color:rgb(255, 238, 235);">
+                    <hr>
+                    <h3>GASTOS CON FACTURA A</h3>
+                    <input class="facturaA" type="text" placeholder="empresa">
+                    <input class="facturaAmonto" type="number" placeholder="monto">
+                    <button class="ingresarFacturasAButton">confirmar</button>
+                    <div class="resultfacturaA"></div>        
+                    <hr>
+                    <div class="resultGlobalA"></div>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" style="background-color:rgb(255, 237, 187);">
+                    <hr>
+                    <h3>Cheques</h3>
+                    <input class="chequesClientes" type="text" placeholder="cliente">
+                    <input class="chequesMonto" type="number" placeholder="monto">
+                    <button class="ingresarChequesButton">confirmar</button>
+                    <div class="resultCheques"></div>
+                    <hr>
+                </div>
+                <div class="col-6" style="background-color:rgb(254, 255, 194);">
+                    <hr>
+                    <h3>COMPRAS MERCADERIA A</h3>
+                    <input class="facturaAcompras" type="text" placeholder="empresa">
+                    <input class="facturaAmontocompras" type="number" placeholder="monto">
+                    <button class="ingresarMercaderiaAButton">confirmar</button>
+                    <div class="resultfacturaAcompras"></div>        
+                    <hr>
+                    <div class="resultGlobalAcompras"></div>
+                    <hr>
+                </div>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-6" style="background-color:#5a65ff;">
+                    <hr>
+                        <h4>RETIROS DE MERCADOPAGO</h4>
+                        <h5>Mayorista</h5>
+                        <input class="montoMP" type="number" placeholder="monto">
+                        <button class="retirosMPbutton">confirmar</button>                        
+                        <div class="resultRetirosMP"></div>        
+                        <hr>
+                        <h5>Minorista</h5>
+                        <input class="mercadopagoMinorista" type="number">
+                        <button class="retirosMPMinoristabutton">confirmar</button>
+                        <div class="resultadoMercadopagoMinorista"></div>
+                </div>    
+                    <div class="col-6" style="background-color:#e2b7ff;">
+                        <hr>
+                        <h3>COMPRAS TIPO B</h3>
+                        <input class="comprasTipoB" type="text" placeholder="empresa">
+                        <input class="comprasTipoBmonto" type="number" placeholder="monto">
+                        <button class="comprasTipoBbutton">confirmar</button>
+                        <div class="resultcomprasTipoB"></div>        
+                        <hr>
+                        <div class="resultGlobalB"></div>
+                        <hr>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-6" style="background-color:#f7f1c5;">
+                    <hr>
+                        <h3>Transferencias MINORISTA</h3>
+                        <input class="minoristaTransferencia" type="number" placeholder="monto">
+                        <button class="minoristaTransferenciaButton">confirmar</button>
+                        <div class="resultMinoristaTransferencia"></div>        
+                        <hr>
+                </div> 
+            </div>
+        </div>
+        <div class="cierreDeCaja">
+            <div class="row">
+                <span class="col-3"></span>   <h1>INGRESOS DE CAJA AL FINAL DE DIA</h1>
+            </div>
+            <div class="row col-auto justify-content-center">
+                <div style="background-color: floralwhite;">
+                    <p>CREDITO Y DEBITOS:</p>
+                    <input class="creditoDebito" type="number">
+                    <button class="creditoDebitoButton">confirmar</button>
+                    <div class="resultadocreditoDebito"></div>
+                    <p>CIERRE Z:</p>
+                    <input class="cierreZ" type="number">
+                    <button class="cierreZbutton">confirmar</button>
+                    <p>TOTAL:</p>
+                    <div class="resultadocierreZ"></div>
+                </div>    
+                <div style="background-color: burlywood;">                      
+                    <p>NOTA DE CREDITO:</p>
+                    <input class="notaDeCredito" type="number">
+                    <button class="notaDeCreditoButton">confirmar</button>
+                    <p>TOTAL:</p>
+                    <div class="resultadonotaDeCredito"></div>
+                    <p>VENTAS CTA CTE:</p>
+                    <input class="ventasCtaCte" type="number">
+                    <button class="ventasCtaCteButton">confirmar</button>
+                    <p>TOTAL:</p>
+                    <div class="resultadoventasCtaCte"></div>  
+                </div>
+            </div>
+        </div>
+        <div class="resultadosTotales">
+            <div class="row justify-content-center">
+                <div class="card" style="background-color: chartreuse; border: 3px solid black;">
+                    <div class="card-body">
+                <p>MERCADOPAGO:</p>
+                    <div class="mercadopagoTotales"></div>
+                <p>COMISIONES %:</p>
+                    <div class="comicionesMP"></div>
+                    <p>TOTAL:</p>
+                    <div class="total-comicionMP"></div>
+                    </div>    
+                </div>
+                <div class="card" style="background-color:rgb(197, 236, 138); border: 3px solid black;">    
+                    <div class="card-body" >
+                        <p>COMISIONES % CREDITO Y DEBITO:</p>
+                        <div class="comiciones"></div>        
+                        <p>TOTAL:</p>
+                        <div class="comicion-debito"></div>
+                    </div>
+                </div>
+                <div class="card" style="background-color: crimson;">
+                    <div class="card-body">
+                        <p>CIERRE Z - NOTA DE CREDITO:</p>
+                        <div class="cierreZ-Ncredit" style="font-size: xx-large; font-weight: 500;"></div>
+                        <p>RECAUDADO:</p>
+                        <div class="recaudado" style="font-size: xx-large; font-weight: 500;"></div>
+                    </div>
+                </div>
+
+                <div class="card" style="background-color: blanchedalmond; border: 3px solid black;">
+                    <div class="card-body">
+                        <p>TOTAL GASTOS:</p>
+                    <div class="totalGastos" style="font-size: xx-large; font-weight: 500;"></div>
+                    <p>COMPRAS A:</p>
+                    <div class="resultGlobalAcompras2" style="font-size: xx-large; font-weight: 500;"></div>    
+                    <p>COMPRAS B:</p>
+                    <div class="resultGlobalB2" style="font-size: xx-large; font-weight: 500;"></div>    
+                    <p>TOTAL COMPRAS A B:</p>
+                    <div class="comprasAB" style="font-size: xx-large; font-weight: 500;"></div>
+                    </div>
+                </div>
+            
+                <div class="card" style="background-color: rgb(169, 169, 169); border: 3px solid black;">
+                    <div class="card-body">
+                    <p>VENTAS A (S/IVA):</p>
+                    <div class="comprasAsIVA" style="font-size: xx-large; font-weight: 500;"></div>
+                    <p>TOTAL VENTAS B:</p>
+                    <div class="totalComprasB" style="font-size: xx-large; font-weight: 500;"></div>
+                    <p>TOTAL VENTAS:</p>
+                    <div class="totalVentasFinal" style="font-size: xx-large; font-weight: 500;"></div>
+                    </div>
+                </div>
+                <div class="card" style="background-color: rgb(153, 211, 55); border: 3px solid black;">
+                    <div class="card-body">
+                    <p>UTILIDAD BRUTA:</p>
+                    <div class="utilidad_bruta" style="font-size: xx-large; font-weight: 500;"></div>
+                    <p>UTILIDAD REAL:</p>
+                    <div class="utilidadReal" style="font-size: xx-large; font-weight: 500;"></div>
+                    </div>
+                </div> 
+            </div>           
+        </div>
+  </div>
+    <script src="uploadData.js"></script> 
+    <script src="app.js"></script> 
+    
+</div>
+</body>
+</html>
