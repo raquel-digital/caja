@@ -8,3 +8,22 @@
 .card{
     border: 5px solid rgb(0, 0, 0);
 }
+.fecha-anterior{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    margin-right: 8rem;
+}
+.fecha-anterior h4{
+    margin-right: 1rem;
+}
+.fecha-anterior label{
+    margin-top: 0.25rem;
+    margin-right: 1rem;
+}
+
+.fecha-anterior input{    
+    width: 3rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}

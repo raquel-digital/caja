@@ -25,8 +25,22 @@ io.on('connect', socket => {
        const res = await controller.ingreso(data);
        io.emit("refresh", res);
     })
+    socket.on("load-caja-anterior", async (fecha) => {
+        const res = await controller.findCajaAnterior(fecha);
+        socket.emit("load-caja-anterior-res", res)
+    })
+    socket.on("control-mes-deposito", async (fecha) => {
+       const res = await controller.findMes(fecha)
+       socket.emit("control-mes-deposito-res", res)
+    })
 })
 
+app.get("/controlMesual", (req, res) => {
+    return  res.sendFile('./public/control.html', {root: __dirname })
+})
+app.get("/control-mes-deposito", (req, res) => {
+    return  res.sendFile('public/depositos-mensuales.html', {root: __dirname })
+})
 
 http.listen(PORT, () => {
     console.log(`servidor escuchando en http://localhost:${PORT}`);

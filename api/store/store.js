@@ -228,7 +228,17 @@ const store = {
             });
         const res = await store.read(data.fecha);    
         return res;
-    },        
+    }, 
+    search: async function (query) {
+        try{
+            const result = await modelCaja.find(
+                {fecha: { "$regex": query, "$options": "i" }}
+            );
+            return result;
+        }catch(err){
+            console.log("[ ERROR EN SEARCH STORE] " + err)
+        }
+    },       
 }
 
 module.exports = store;

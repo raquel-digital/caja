@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja Mayorista</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="margin.css">
+    <script src="/socket.io/socket.io.js"></script>   
+</head>
+<body topmargin="10px" leftmargin="10px" rightmargin="10px">
+    <div class="allBody">
+    <div class="mx-auto ml-5" style="height: 20px;"></div>
+       <div class="row">
+        <hr>   
+        <div class="fecha"></div>
+        <div class="col-7"></div>
+        <form action="/"><button class="ml-2 btn btn-warning" type="submit">VOLVER</button></form>
+        <hr>
+    </div> 
+
+        <div class="load d-flex justify-content-center">            
+            <div class="tenor-gif-embed" data-postid="8820437" data-share-method="host" data-aspect-ratio="2.32" data-width="40%"><a href="https://tenor.com/view/loading-buffering-gif-8820437">Loading Buffering GIF</a>from <a href="https://tenor.com/search/loading-gifs">Loading GIFs</a></div>  -->
+             <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+
+        <div class="table">
+            
+        </div>
+            <div class="row d-flex justify-content-center">
+            <div class="col-2 input" style="background-color: bisque;">
+            
+            <form action="/formSubmit" method="post">
+            <p>ALQUILER:</p>
+            <input class="alquilerResult" type="number" value="0" name="ALQUILER">
+            
+            <p>SUELDOS C/CARGAS</p>
+            <input class="sueldosCargasResult" type="number" value="0"  name="SUELDOS_CARGAS">
+            
+            <p>PROGRAMADOR</p>
+            <input class="programadorResult" type="number" value="0"  name="PROGRAMADOR">
+            
+            <p>POSNET</p>
+            <input class="posnetResult" type="number" value="0"  name="POSNET">
+            
+            <p>contador</p>
+            <input class="contadorResult" type="number" value="0"  name="contador">
+            
+            <p>jubilacion javier</p>
+            <input class="jubilacionJavierResult" type="number" value="0"  name="jubilacion_javier">
+            
+            <p>Telecom</p>            
+            <input class="telecomResult" type="number" value="0"  name="Telecom">
+            
+            <p>abl/planes</p>  
+            <input class="ablResult" type="number" value="0"  name="abl_planes">
+                    
+            <p>seguros</p>
+            <input class="segurosResult" type="number" value="0"  name="seguros">
+            
+            <p>gastos bancarios</p> 
+            <input class="gastosBancariosResult" type="number" value="0"  name="gastos_bancarios">  
+            
+            <p>ganancias</p>    
+            <input class="ganaciasResult" type="number" value="0"  name="ganancias">
+            
+            <p>sueldos 2</p>
+            <input class="sueldosResult" type="number" value="0"  name="sueldos_2">
+            
+            <p>Movistar</p>  
+            <input class="moviestarResult" type="number" value="0"  name="Movistar">
+            
+            <hr> 
+            <button type="submit">ACEPTAR</button> 
+            </form>
+            </div>
+    </div>
+
+    <div class="totalGastoDiario" style="background-color: honeydew;"></div>
+    <div class="comprasA" style="background-color:rgb(240, 253, 255);"></div>
+    <div class="comprasB" style="background-color: rgb(255, 250, 240);"></div> 
+    <div class="TOT-COMPRA" style="background-color: rgb(215, 180, 255);"></div>
+    <div class="VENTA-Asiv" style="background-color: rgb(255, 170, 240);"></div>
+    <div class="VENTAS-B" style="background-color: rgb(231, 94, 124);"></div>
+    <div class="TOT-VENTAS" style="background-color: rgb(197, 236, 91);"></div>  
+    <h4>FALTA VENTAS AL MINORISTA</h4>
+    <div class="UTILID-BRUTA" style="background-color: rgb(190, 246, 190);"></div>
+    <div class="UTILID-REAL" style="background-color: rgb(207, 222, 246);"></div>
+    <hr>
+    <div class="NETO-GRAV"></div>
+    <div class="IVA"></div>
+    <div class="TOTAL"></div>
+    <h4>NOTAS DE CREDITO</h4>
+    <div class="NETO-GRAV-ndc"></div>
+    <div class="IVA-ndc"></div>
+    <div class="TOTAL-ndc"></div>
+    <hr>
+    <h4>TOTALES REALES</h4>
+    <div class="NETO-GRAV-tr"></div>
+    <div class="IVA-tr"></div>
+    <div class="TOTAL-tr"></div>
+</div>
+    <script src="appControlCaja.js"></script>    
+</body>

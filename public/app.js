@@ -11,12 +11,35 @@ socket.on("refresh", res => {
     if(res){
         fechaHoy = res.fecha;
         document.querySelector("#fecha").innerHTML = `<h1>FECHA DEL DÍA: ${res.fecha}</h1>`;
+        const fechaSplit = res.fecha.split("/")
+        document.querySelector("#fecha-anterior-mes").value = fechaSplit[1]
+        document.querySelector("#fecha-anterior-año").value = fechaSplit[2]
+        
         updateData(res);
         document.body.style.display = 'block';
     }else{
         document.body.innerHTML = `<h1>[ Esperando Carga De Base De Datos... ] Recargue la pagina</h1>`
     }
 });
+
+//TODO
+socket.on("load-caja-anterior-res", res => {
+    document.querySelector("#fecha").innerHTML = `<h1>FECHA DE CAJA ANTERIOR: ${res.fecha}</h1>`;
+    updateData(res);
+    const allInputs = document.querySelectorAll("input")
+    const check = ["fecha-anterior-dia", "fecha-anterior-mes", "fecha-anterior-año"]
+    allInputs.forEach(e => {
+        let ok = true
+        check.forEach(c => {
+            if(e.id === c){
+                ok = false
+            }
+        })
+        if(ok){
+            e.setAttribute("disabled", true)
+        }
+    })
+})
 
 body.addEventListener("click", (event) => {
     const mouse = event.target;
@@ -142,6 +165,21 @@ body.addEventListener("click", (event) => {
         socket.emit("ingreso-caja", { ventas_cta_cte: Number(monto), fecha: fechaHoy })
         borrarInputs()
     }
+    //BUSCAR CAJAS ANTERIORES
+    if(mouse.classList.contains("boton-caja-anterior")){
+        const dia = document.querySelector("#fecha-anterior-dia").value
+        const mes = document.querySelector("#fecha-anterior-mes").value
+        const anio = document.querySelector("#fecha-anterior-año").value
+
+        const fecha = dia + "/" + mes + "/" + anio
+        
+        if(dia && mes && anio){            
+            alert("BUSCANDO CAJA ANTERIOR") 
+            socket.emit("load-caja-anterior", fecha)
+        }else{
+            alert("FALTA INGRESAR UN DATO")
+        }
+    }
 })
 
 
@@ -156,8 +194,5 @@ function borrarInputs(){
     });
 }
 
-function buscarGastos(){
-
-}
 
 

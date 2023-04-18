@@ -1,3 +1,4 @@
+const { async } = require("rxjs");
 const store = require("../store/store")
 
 const controller = {
@@ -166,7 +167,17 @@ const controller = {
             }
 
             const datosCaja = await store.read(data.fecha);
-            return store.results(datosCaja)
+            return store.results(datosCaja);
+        },
+        findCajaAnterior: async function (fecha) {            
+          const res = await store.read(fecha);
+          return res;
+        },
+        findMes: async function (fecha){
+           const fechaSplit = fecha.split("/") 
+           const mesAnio = fechaSplit[1] + "/" + fechaSplit[2]
+           const res = await store.search(mesAnio)
+           return res
         }
     }
 
