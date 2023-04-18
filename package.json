@@ -1,7 +1,6 @@
 {
   "name": "caja-mayorista",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,5 +14,16 @@
     "mongoose": "^6.9.1",
     "socket.io": "^4.6.1",
     "node": "^13.14.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raquel-digital/caja.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/raquel-digital/caja/issues"
+  },
+  "homepage": "https://github.com/raquel-digital/caja#readme",
+  "description": ""
 }
