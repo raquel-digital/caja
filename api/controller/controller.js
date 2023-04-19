@@ -150,8 +150,8 @@ const controller = {
                 if(data.cierreZrestaNcred != 0){
                     coeficienteViejo = (data.cierreZrestaNcred * porcentajeIngresosBrutos) * -1;
                 }
-                
-                await store.cierre_z(data, totalGastos.toFixed(2), cierreZMenosNotaCredito.toFixed(2), coeficienteViejo.toFixed(2));
+                console.log(coeficienteViejo)
+                await store.cierre_z(data, totalGastos.toFixed(2), cierreZMenosNotaCredito.toFixed(2), coeficienteViejo);
                 
             }
             if(data.notas_de_credito){

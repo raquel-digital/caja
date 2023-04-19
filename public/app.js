@@ -150,6 +150,7 @@ body.addEventListener("click", (event) => {
         const monto = document.querySelector(".cierreZ").value
         
         const cierreZrestaNcred = document.querySelector(".cierreZ-Ncredit").textContent
+        console.log(monto, cierreZrestaNcred)
         socket.emit("ingreso-caja", { cierre_z: Number(monto), cierreZrestaNcred: Number(cierreZrestaNcred), fecha: fechaHoy})
         borrarInputs()
     }

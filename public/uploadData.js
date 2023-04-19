@@ -5,7 +5,7 @@ function updateData(data){
     document.querySelector(".resultadoComida").innerHTML = `${data.gasto_comida}`
     document.querySelector(".resultcorreoGastos").innerHTML = `${data.gasto_correo}`
     document.querySelector(".resultgastoFlete").innerHTML = `${data.gasto_flete}`
-    document.querySelector(".totalGastos").innerHTML = `${data.total_gastos}`
+    document.querySelector(".totalGastos").innerHTML = `${data.total_gastos.toFixed(2)}`
     document.querySelector(".resultRetirosMP").innerHTML = `${data.mercadopago_retirado}`
     document.querySelector(".resultGlobalB").innerHTML = `TOTAL: ${data.resultado_comprasB}`
     document.querySelector(".resultGlobalB2").innerHTML = `${data.resultado_comprasB}`

@@ -174,7 +174,7 @@ const store = {
                 {fecha: data.fecha}, 
                 {
                     $inc: {
-                        total_gastos: totalGastos.toFixed(2)
+                        total_gastos: totalGastos
                     }  
                 }
              )
