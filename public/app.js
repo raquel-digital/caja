@@ -24,22 +24,28 @@ socket.on("refresh", res => {
 
 //TODO
 socket.on("load-caja-anterior-res", res => {
-    document.querySelector("#fecha").innerHTML = `<h1>FECHA DE CAJA ANTERIOR: ${res.fecha}</h1>`;
-    updateData(res);
-    const allInputs = document.querySelectorAll("input")
-    const check = ["fecha-anterior-dia", "fecha-anterior-mes", "fecha-anterior-año"]
-    allInputs.forEach(e => {
-        let ok = true
-        check.forEach(c => {
-            if(e.id === c){
-                ok = false
-            }
-        })
-        if(ok){
-            e.setAttribute("disabled", true)
+        if(res == null){
+            alert("NO EXISTE CAJA EN ESA FECHA")
+        }else{
+            document.querySelector("#fecha").innerHTML = `<h1>FECHA DE CAJA ANTERIOR: ${res.fecha}</h1>`;
+            updateData(res);
+            const allInputs = document.querySelectorAll("input")
+            const check = ["fecha-anterior-dia", "fecha-anterior-mes", "fecha-anterior-año"]
+            allInputs.forEach(e => {
+                let ok = true
+                check.forEach(c => {
+                    if(e.id === c){
+                        ok = false
+                    }
+                })
+                if(ok){
+                    e.setAttribute("disabled", true)
+                }
+            })
         }
+    
     })
-})
+
 
 body.addEventListener("click", (event) => {
     const mouse = event.target;

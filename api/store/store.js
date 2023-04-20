@@ -33,7 +33,7 @@ const store = {
         return await modelCaja.findOneAndUpdate(
              {fecha: data.fecha}, 
              {
-                $inc: { gasto_comida: data.gasto_comida, recaudado: data.gasto_comida, total_gastos: data.gasto_comida.toFixed(2)}
+                $inc: { gasto_comida: data.gasto_comida, recaudado: data.gasto_comida, total_gastos: data.gasto_comida}
              });            
     },
     gasto_otros: async function (data) {
@@ -41,7 +41,7 @@ const store = {
              {fecha: data.fecha}, 
              {
                  $push: { gasto_otros: data.gasto_otros },
-                 $inc: { recaudado: data.gasto_otros.monto, total_gastos: data.gasto_otros.monto.toFixed(2) }
+                 $inc: { recaudado: data.gasto_otros.monto, total_gastos: data.gasto_otros.monto }
              });            
      }, 
      transferencias_ICBC: async function (data) {
@@ -63,7 +63,7 @@ const store = {
         return await modelCaja.findOneAndUpdate(
              {fecha: data.fecha}, 
              {
-                $inc: { gasto_flete: data.gasto_flete, recaudado: data.gasto_flete, total_gastos: data.gasto_flete.toFixed(2) }
+                $inc: { gasto_flete: data.gasto_flete, recaudado: data.gasto_flete, total_gastos: data.gasto_flete }
              });            
     },
     transferencias_Santander: async function (data) {
@@ -75,7 +75,7 @@ const store = {
              });
     },
     gasto_facturaA: async function (data) {
-        const desgloceIVA = parseFloat(data.gasto_facturaA.monto / 1.21).toFixed(2); 
+        const desgloceIVA = parseFloat(data.gasto_facturaA.monto / 1.21); 
         return await modelCaja.findOneAndUpdate(
              { fecha: data.fecha }, 
              {
@@ -92,12 +92,12 @@ const store = {
              });
     },
     compras_facturaA: async function (data) {
-        const desgloceIVA = parseFloat(data.compras_facturaA.monto / 1.21).toFixed(2);
+        const desgloceIVA = parseFloat(data.compras_facturaA.monto / 1.21);
         return await modelCaja.findOneAndUpdate(
              { fecha: data.fecha }, 
              {
                $push: { compras_facturaA: data.compras_facturaA },
-               $inc: { resultado_comprasA: desgloceIVA, total_gastos: desgloceIVA.toFixed(2), total_comprasAB: desgloceIVA.toFixed(2)}
+               $inc: { resultado_comprasA: desgloceIVA, total_gastos: desgloceIVA, total_comprasAB: desgloceIVA}
              });
     },
     mercadopago_retirado: async function (data, totalComicionMP, totalComicionMPresta) {
@@ -110,7 +110,7 @@ const store = {
                         recaudado: data.mercadopago_retirado,
                         total_comicionMP: totalComicionMP,
                         comicionMP_resta: totalComicionMPresta,
-                        total_gastos: totalComicionMP.toFixed(2)  
+                        total_gastos: totalComicionMP 
                     }
              });            
     },
@@ -137,9 +137,9 @@ const store = {
                     mercadopago_minorista: data.mercadopago_minorista, 
                     recaudado: resta, 
                     mercadopagoTotales: resta,
-                    total_comicionMP: totalComicionMP.toFixed(2),
+                    total_comicionMP: totalComicionMP,
                     comicionMP_resta: totalComicionMPresta,
-                    total_gastos: totalComicionMP.toFixed(2)  
+                    total_gastos: totalComicionMP  
                 }
              });
     },  
@@ -149,10 +149,10 @@ const store = {
              {
                 $inc: { 
                         credito_debito: data.credito_debito,
-                        comiciones: totalComicionDebtCred.toFixed(2),
+                        comiciones: totalComicionDebtCred,
                         comicion_debitos: totalComicionRestaDebtCred,
                         recaudado: data.credito_debito,
-                        total_gastos: totalComicionDebtCred.toFixed(2),
+                        total_gastos: totalComicionDebtCred,
                     }
              });            
     },    
@@ -163,7 +163,7 @@ const store = {
              {
                 $inc: { 
                         cierre_z: data.cierre_z,                        
-                        total_gastos: coeficienteViejo.toFixed(2),
+                        total_gastos: coeficienteViejo,
                     },
                 $set: { 
                     cierreZ_Ncredit: cierreZMenosNotaCredito
@@ -186,7 +186,7 @@ const store = {
              {
                 $inc: { 
                         notas_de_credito: data.notas_de_credito,
-                        total_gastos: coeficienteViejo.toFixed(2),
+                        total_gastos: coeficienteViejo,
                 },
                 $set: { 
                     cierreZ_Ncredit: cierreZMenosNotaCredito
@@ -196,7 +196,7 @@ const store = {
                 {fecha: data.fecha}, 
                 {
                  $inc: {
-                    total_gastos: totalGastos.toFixed(2)
+                    total_gastos: totalGastos
                 }
             })
     }, 
@@ -212,22 +212,23 @@ const store = {
         const ventasB = (data.recaudado - data.cierreZ_Ncredit) + data.ventas_cta_cte;
         const ventasAB = ventasA + ventasB
         const utilidadBruta = data.comprasA_sIVA - data.total_comprasAB
-        const utilidadReal = utilidadBruta - data.total_gastos.toFixed(2)
+        const utilidadReal = utilidadBruta - data.total_gastos
 
         await modelCaja.findOneAndUpdate(
             {fecha: data.fecha}, 
             {
                $set: {
                     resultado_comprasA: data.resultado_comprasA, 
-                    comprasA_sIVA: ventasA.toFixed(2),
-                    total_comprasB: ventasB.toFixed(2),
-                    total_ventas: ventasAB.toFixed(2),
-                    utilidad_bruta: utilidadBruta.toFixed(2),
-                    utilidad_real: utilidadReal.toFixed(2)
+                    comprasA_sIVA: ventasA,
+                    total_comprasB: ventasB,
+                    total_ventas: ventasAB,
+                    utilidad_bruta: utilidadBruta,
+                    utilidad_real: utilidadReal
                 }
             });
         const res = await store.read(data.fecha);    
         return res;
+
     }, 
     search: async function (query) {
         try{
