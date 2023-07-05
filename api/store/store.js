@@ -208,16 +208,18 @@ const store = {
              });            
     },  
     results: async function (data) {
-        const ventasA = data.cierreZ_Ncredit / 1.21
+        const ventasA = data.comprasA_sIVA / 1.21 //data.cierreZ_Ncredit / 1.21
         const ventasB = (data.recaudado - data.cierreZ_Ncredit) + data.ventas_cta_cte;
         const ventasAB = ventasA + ventasB
-        const utilidadBruta = data.comprasA_sIVA - data.total_comprasAB
+        const utilidadBruta = data.total_ventas - data.total_comprasAB //data.comprasA_sIVA - data.total_comprasAB
         const utilidadReal = utilidadBruta - data.total_gastos
+        const totalGastos = (ventasA * 0.05) + data.total_gastos
 
         await modelCaja.findOneAndUpdate(
             {fecha: data.fecha}, 
             {
                $set: {
+                    totalGastos: totalGastos,
                     resultado_comprasA: data.resultado_comprasA, 
                     comprasA_sIVA: ventasA,
                     total_comprasB: ventasB,

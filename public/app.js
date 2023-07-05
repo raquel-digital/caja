@@ -27,21 +27,25 @@ socket.on("load-caja-anterior-res", res => {
         if(res == null){
             alert("NO EXISTE CAJA EN ESA FECHA")
         }else{
-            document.querySelector("#fecha").innerHTML = `<h1>FECHA DE CAJA ANTERIOR: ${res.fecha}</h1>`;
-            updateData(res);
-            const allInputs = document.querySelectorAll("input")
-            const check = ["fecha-anterior-dia", "fecha-anterior-mes", "fecha-anterior-año"]
-            allInputs.forEach(e => {
-                let ok = true
-                check.forEach(c => {
-                    if(e.id === c){
-                        ok = false
-                    }
-                })
-                if(ok){
-                    e.setAttribute("disabled", true)
-                }
-            })
+             document.querySelector("#fecha").innerHTML = `<h1>FECHA DE CAJA ANTERIOR: ${res.fecha}</h1>`;
+             updateData(res);
+            //OLD
+            //disable inputs
+            // const allInputs = document.querySelectorAll("input")
+            // const check = ["fecha-anterior-dia", "fecha-anterior-mes", "fecha-anterior-año"]
+            // allInputs.forEach(e => {
+            //     let ok = true
+            //     check.forEach(c => {
+            //         if(e.id === c){
+            //             ok = false
+            //         }
+            //     })
+            //     if(ok){
+            //         e.setAttribute("disabled", true)
+            //     }
+            // })
+            console.log(res)
+            fechaHoy = res.fecha
         }
     
     })
@@ -174,9 +178,16 @@ body.addEventListener("click", (event) => {
     }
     //BUSCAR CAJAS ANTERIORES
     if(mouse.classList.contains("boton-caja-anterior")){
-        const dia = document.querySelector("#fecha-anterior-dia").value
-        const mes = document.querySelector("#fecha-anterior-mes").value
+        let dia = document.querySelector("#fecha-anterior-dia").value
+        let mes = document.querySelector("#fecha-anterior-mes").value
         const anio = document.querySelector("#fecha-anterior-año").value
+        
+        if(dia.length == 1){
+            dia = "0" + dia
+        }
+        if(mes.length == 1){
+            mes = "0" + mes
+        }
 
         const fecha = dia + "/" + mes + "/" + anio
         
