@@ -28,6 +28,9 @@ socket.on("load-caja-anterior-res", res => {
             alert("NO EXISTE CAJA EN ESA FECHA")
         }else{
              document.querySelector("#fecha").innerHTML = `<h1>FECHA DE CAJA ANTERIOR: ${res.fecha}</h1>`;
+             document.querySelector(".botoneraInicio").innerHTML += `
+             <button class="ml-3 btn btn-warning" onclick="refresh()">VOLVER</button>
+             `
              updateData(res);
             //OLD
             //disable inputs
@@ -212,5 +215,8 @@ function borrarInputs(){
     });
 }
 
+function refresh(){
+    window.location.reload()
+}
 
 
