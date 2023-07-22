@@ -194,6 +194,8 @@ body.addEventListener("click", (event) => {
 
         const fecha = dia + "/" + mes + "/" + anio
         
+        console.log(fecha)
+
         if(dia && mes && anio){            
             alert("BUSCANDO CAJA ANTERIOR") 
             socket.emit("load-caja-anterior", fecha)
@@ -210,7 +212,7 @@ function borrarInputs(){
     const borrarTexto = document.querySelectorAll("input");
     borrarTexto.forEach(element => {
         if(element.value != " "){            
-            element.value = " ";
+            element.value = "";
         }
     });
 }
