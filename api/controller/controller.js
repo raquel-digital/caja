@@ -121,6 +121,9 @@ const controller = {
                 await store.transferencias_minorista(data);
                 
             }
+            if(data.depositos_mercadopago){
+                await store.depositos_mercadopago(data);
+            }
             if(data.mercadopago_minorista){
                 const comicionMP = 1 //TODO en variable entorno
                 const resta = data.mercadopago_minorista * -1;        

@@ -29,6 +29,14 @@ function updateData(data){
     document.querySelector(".utilidadReal").innerHTML = `${data.utilidad_real.toFixed(2)}`;
     
     //resultados con arrays
+    if(data.depositos_mercadopago){
+        document.querySelector(".resultDepositos_MP").innerHTML = "";
+        data.depositos_mercadopago.forEach(e => {
+            document.querySelector(".resultDepositos_MP").innerHTML += `
+                <li>Motivo: ${e.cliente} Monto: ${e.monto}</li>
+            `
+        });
+    }
     if(data.retiro_de_caja != undefined){
         let total = 0;
         document.querySelector(".resultRetiroDeCaja").innerHTML = "";

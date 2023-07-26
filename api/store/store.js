@@ -83,6 +83,14 @@ const store = {
                $inc: { recaudado: data.gasto_facturaA.monto, resultado_facturaA: desgloceIVA}
              });
     },
+    depositos_mercadopago:  async function (data) {
+        
+        return await modelCaja.findOneAndUpdate(
+             { fecha: data.fecha }, 
+             {
+               $push: { depositos_mercadopago: data.depositos_mercadopago }               
+             });
+    },
     cheques: async function (data) {
         return await modelCaja.findOneAndUpdate(
              { fecha: data.fecha }, 

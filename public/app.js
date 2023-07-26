@@ -154,6 +154,13 @@ body.addEventListener("click", (event) => {
                                     })
         borrarInputs()
     }
+    if(mouse.classList.contains("depositos_MP_Button")){
+        const monto = document.querySelector(".depositos_MP").value
+        const cliente = document.querySelector(".depositos_MP_cliente").value
+        console.log({ cliente: cliente, monto: Number(monto), fecha: fechaHoy})
+        socket.emit("ingreso-caja", { depositos_mercadopago: { cliente: cliente, monto: Number(monto) }, fecha: fechaHoy})
+        borrarInputs()
+    }
     if(mouse.classList.contains("creditoDebitoButton")){
         const monto = document.querySelector(".creditoDebito").value
         socket.emit("ingreso-caja", { credito_debito: Number(monto), fecha: fechaHoy})

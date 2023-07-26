@@ -40,6 +40,7 @@ const schema = mongoose.Schema({
     total_ventas : {type: Number},
     utilidad_bruta : {type: Number},
     utilidad_real : {type: Number},
+    depositos_mercadopago : [{cliente: String, monto: Number}],
     transferencias_minorista: [{type: Number}]
 });
 

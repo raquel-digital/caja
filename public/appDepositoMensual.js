@@ -40,6 +40,15 @@ function ingresarDatos(dataMes) {
                     </tbody>
                 </tr>
             </th>
+            <th scope="col">MERCADOPAGO
+                <tr>
+                    <tbody class="tableMercadoPago">
+                        <td scope="col">FECHA</th>
+                        <td scope="col">CLIENTE</th>
+                        <td scope="col">MONTO</th>
+                    </tbody>
+                </tr>
+            </th>
             <th scope="col">Transferencias Minorista
                 <tr>
                     <tbody class="tableMinorista">
@@ -51,7 +60,13 @@ function ingresarDatos(dataMes) {
     </thead>        
     </table>`
     dataMes.forEach(data => {
-
+        if(data.depositos_mercadopago){
+            data.depositos_mercadopago.forEach( e => {
+                document.querySelector(".tableMercadoPago").innerHTML += `
+                <tr><td>${data.fecha}</td><td>cliente: ${e.cliente} <td> monto: <b>${e.monto}</b></td><tr>
+                `;
+            })
+        }
     
         if(data.cheques.length > 0){            
             data.cheques.forEach( e => {
