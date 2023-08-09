@@ -7,7 +7,7 @@ socket.on("control-mes-deposito-res", res => ingresarDatos(res))
 
 
 function ingresarDatos(dataMes) {
-    //console.log(data)
+    console.log(dataMes)
     let table =  document.querySelector(".table");
     document.querySelector(".load").innerHTML = " ";      
     table.innerHTML = `<table class="table table-hover">
@@ -144,4 +144,31 @@ function crearFecha() {
     const fecha = dd + '/' + mm + '/' + yyyy;
     return fecha;
 }
+
+//CONSULTA DEPOSITOS ANTERIORES
+//BUSCAR CAJAS ANTERIORES
+document.querySelector(".allBody").addEventListener("click", (event) => {
+    const mouse = event.target;
+    if(mouse.classList.contains("boton-caja-anterior")){
+        
+        let mes = document.querySelector("#fecha-anterior-mes").value
+        const anio = document.querySelector("#fecha-anterior-año").value
+        
+        if(mes.length == 1){
+            mes = "0" + mes
+        }
+
+        const fecha = "null" + "/" + mes + "/" + anio
+        
+        console.log(fecha)
+
+        if(mes && anio){
+                        
+            alert("BUSCANDO MES ANTERIOR") 
+            socket.emit("control-mes-deposito", fecha)
+        }else{
+            alert("FALTA INGRESAR UN DATO")
+        }
+    }
+})
 

@@ -245,6 +245,8 @@ const store = {
             const result = await modelCaja.find(
                 {fecha: { "$regex": query, "$options": "i" }}
             );
+            // console.log(query)
+            // console.log(result)
             return result;
         }catch(err){
             console.log("[ ERROR EN SEARCH STORE] " + err)
