@@ -1,5 +1,6 @@
 const socket = io.connect();
 
+document.querySelector("#fecha-anterior-año").value = new Date().getFullYear()
 
 socket.emit("control-mes-deposito", crearFecha())
 socket.on("control-mes-deposito-res", res => ingresarDatos(res))
